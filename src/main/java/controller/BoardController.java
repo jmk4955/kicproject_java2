@@ -491,7 +491,6 @@ public class BoardController {
 			File file = new File(path, multipartFile.getOriginalFilename());
 			multipartFile.transferTo(file);
 			filename = multipartFile.getOriginalFilename();
-			System.out.println(filename);
 
 		}
 

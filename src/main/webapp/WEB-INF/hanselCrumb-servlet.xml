@@ -60,29 +60,42 @@
    	
    	<mvc:interceptors>
    		<mvc:interceptor>
-   			<mvc:mapping path="/member1/memberInfo" />
-   			<mvc:mapping path="/member1/memberUpdate" />
-   			<mvc:mapping path="/member1/memberPassUpdate" />
-   			<mvc:mapping path="/member1/memberDelete" />
+   			<mvc:mapping path="/member/memberInfo" />
+   			<mvc:mapping path="/member/memberUpdate" />
+   			<mvc:mapping path="/member/memberUpdatePro" />
+   			<mvc:mapping path="/member/memberPwdUpdatePro" />
+   			<mvc:mapping path="/member/memberDelete" />
+   			<mvc:mapping path="/member/memberDeletePro" />
    			
-   			<mvc:mapping path="/board1/commentPro" />
-   			<mvc:mapping path="/board1/petBoardForm" />
-   			<mvc:mapping path="/board1/adoptBoardForm" />
-   			<mvc:mapping path="/board1/reviewBoardForm" />
-   			<mvc:mapping path="/board1/QBoardForm" />
-   			<mvc:mapping path="/board1/reportForm" />
+   			<mvc:mapping path="/board/petBoardForm" />
+   			<mvc:mapping path="/board/petBoardUpdate" />
+   			<mvc:mapping path="/board/disablePost" />
+   			<mvc:mapping path="/board/deleteComm" />
    			
-   			<mvc:mapping path="/board1/petBoardUpdate" />
-   			<mvc:mapping path="/board1/adoptBoardUpdate" />
-   			<mvc:mapping path="/board1/reviewBoardUpdate" />
-   			<mvc:mapping path="/board1/QBoardUpdate" />
+   			<mvc:mapping path="/board/petBoardUpdatePro" />
+   			<mvc:mapping path="/board/adoptBoardUpdatePro" />
+   			<mvc:mapping path="/board/reviewBoardUpdatePro" />
+   			<mvc:mapping path="/board/qnaBoardUpdatePro" />
+   			
+   			<mvc:mapping path="/board/petBoardPro" />
+   			<mvc:mapping path="/board/adoptBoardPro" />
+   			<mvc:mapping path="/board/reviewBoardPro" />
+   			<mvc:mapping path="/board/qnaBoardPro" />
+   			<mvc:mapping path="/board/commentPro" />
    			
    			<bean class="service.LoginInterceptor"/>
    		</mvc:interceptor>
    		
    		<mvc:interceptor>
-   			<mvc:mapping path="/admin1/adminUser" />
-   			<mvc:mapping path="/admin1/adminReport" />
+   			<mvc:mapping path="/admin/adminUserList" />
+   			<mvc:mapping path="/admin/adminSearchUser" />
+   			<mvc:mapping path="/admin/adminDisPost" />
+   			<mvc:mapping path="/admin/adminRepoList" />
+   			<mvc:mapping path="/admin/deleteUser" />
+   			<mvc:mapping path="/admin/adminDelComm" />
+   			<mvc:mapping path="/admin/adminDelPost" />
+   			<mvc:mapping path="/admin/updateAuth" />
+   			
    			<bean class="service.AdminInterceptor"/>
    		</mvc:interceptor>
    		

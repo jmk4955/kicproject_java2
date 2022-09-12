@@ -32,7 +32,7 @@
 	</select>
 	
 	<update id="boardUpdate" parameterType="qnaBoard">
-		update qnaBoard set subject = #{subject}, content #{content} where postId = #{postId}
+		update qnaBoard set subject = #{subject}, content = #{content} where postId = #{postId}
 	</update>
 	
 	<update id="boardDisable" parameterType="int">

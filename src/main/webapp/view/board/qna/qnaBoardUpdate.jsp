@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 
-<link rel="stylesheet" href="${ pageContext.request.contextPath }/view/css/petBoardForm.css">
+<link rel="stylesheet" href="${ pageContext.request.contextPath }/view/css/member/petBoardForm.css">
 
 </head>
 <body>
@@ -14,7 +14,7 @@
 	
 	<h2 style="padding-left: 150px;"> 질문 수정</h2>
 	
-    <form action="${ pageContext.request.contextPath }/board/QBoardUpdatePro" name="f" method="post">
+    <form action="${ pageContext.request.contextPath }/board/qnaBoardUpdatePro" name="f" method="post">
 
       <div class="inner center">
         
@@ -25,17 +25,17 @@
               <div class="name center">
                	질문
               </div>
-              <input type="text" name="subject" value="${ pb.subject }">
+              <input type="text" name="subject" value="${ board.subject }">
             </div>
 
             <div class="conInput explain">
               <div class="name">
                 내용
               </div>
-              <textarea class="scrollbar" name="content">${ pb.content }</textarea>
+              <textarea class="scrollbar" name="content">${ board.content }</textarea>
             </div>
            	<input type="hidden" name="userId" value="${ sessionScope.userId }"/>
-			<input type="hidden" name="QId" value="${ pb.QId }"/>
+			<input type="hidden" name="postId" value="${ board.postId }"/>
 
             <input type="submit" value="작성완료" class="btn white">
           </div>

@@ -47,7 +47,7 @@
             <li class="subject center">
               ${ b.regDate }
             </li>
-            <a href="${ pageContext.request.contextPath }/board/QBoardInfo?QId=${b.QId}">
+            <a href="${ pageContext.request.contextPath }/board/petBoardInfo?postId=${b.postId}">
             <li class="content">
               ${ b.subject }
             </li>

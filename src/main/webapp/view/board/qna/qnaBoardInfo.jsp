@@ -10,121 +10,105 @@
 
 	<script type="text/javascript">
 		const confirmDisable = () => {
-				
-			const con = confirm("게시물을 삭제하시겠습니까??");
+
+			const con = confirm("게시물을 삭제하시겠습니까?");
 			if(con) {
 				console.log(con);
-				location.href = "${ pageContext.request.contextPath }/board/QBoardDelete?QId=${pb.QId}";
+				location.href = "${ pageContext.request.contextPath }/board/disablePost?postId=${board.postId}";
 			} else {
 				console.log(con);
 				return;
 			}
-			
 		}
-		
-	</script>
+  </script>
 
 <link rel="stylesheet" href="${ pageContext.request.contextPath }/view/css/petBoardInfo.css">
 </head>
 <body>
 
-	<div class="module petBoardInfo">
+	<!-- content -->
+  <section class="content">
     <div class="inner center">
+      <h2 style="font-size: 30px; width: 100%;margin-bottom: 30px;">Q&A</h2>
 
-      <div class="petInfo">
-        <div class="inner">
-          <form action="" method="post">
+      <div class="contentHead center">
+        <ul class="regDate center">
+          <li>
+            <span class="name">작성일 : </span>${ board.regDate }
+          </li>
+          <li>
+            <span class="name">조회수 : </span>${ board.readCnt }
+          </li>
+        </ul>
 
-            <div class="infoContent center read">
-              <div class="name">조회수 :</div> 
-              <div>
-                ${ pb.readCnt }
-              </div>
-            </div>
-            
-            <div class="infoContent center">
-              <div class="name">질문 :</div>
-              <div>
-                ${ pb.subject }
-              </div>
-            </div>
-          
-          <div class="infoContent">
-            <div class="name">내용</div>
-            <div>
-              <textarea class="scrollbar" readonly style="width: 100%; height: 450px; outline: none; border: none; resize: none;">${ pb.content }</textarea>
-            </div>
-          </div>
-          
-          <div class="infoContent center regDate">
-            <div class="name">작성일 :</div>
-            <div>
-              ${ pb.regDate }
-            </div>
-          </div>
-          <div class="buttons" >
-          <c:if test="${ sessionScope.userId == pb.userId }">
-          	<a href="${ pageContext.request.contextPath }/board/QBoardUpdate?QId=${pb.QId}" class="btn">
-				수정 
-			</a>
-			<a href="javascript:confirmDisable()" class="btn">
-				삭제
-			</a>
-			</c:if>
-			<a href="${ pageContext.request.contextPath }/board/QBoard" class="btn">
-				목록
-			</a>
-          	<input type="submit" class="btn" value="신고" class="btn">
-          </div>
-          
-        </form>
+        <div class="box center">
+        <c:if test="${ sessionScope.userId == board.userId }">
+          <a href="${ pageContext.request.contextPath }/board/petBoardUpdate?postId=${board.postId}" class="btn">수정</a>
+		  <a href="javascript:confirmDisable()" class="btn">삭제</a>
+        </c:if>
+        <c:if test="${ sessionScope.userId != null}">
+          <div class="btn">신고</div>
+        </c:if>
+          <a href="${ pageContext.request.contextPath }/board/petBoard?boardType=${ boardType }&petType=0" class="btn">목록</a>
         </div>
       </div>
 
-      <div class="petComment">
-        <div class="inner">
-          <div class="commentName">
-            답변 ${ commCount }
-          </div>
+      <div class="contentInfo">
+        <ul class="center info1">
+          <li>
+            <span class="name">질문 : </span>${ board.subject }
+          </li>
 
-          <div class="commentCon scrollbar">
-
-            <div class="comment center">
-              <c:if test="${ commCount == 0 }">
-				<p>등록된 덧글이 없습니다.</p>
-			</c:if>
-			<c:if test="${ commCount > 0 }">
-			
-			<c:forEach var="b" items="${ commlist }">
-              <form style="width: 100%;" action="" method="post">
-
-                <div class="userId">
-                  ${ b.userId }
-                </div>
-                <textarea style="width: 100%; outline: none; border: none; padding: 10px; resize: none;" readonly class="commentContent">${ b.content }</textarea>
-                <input type="submit" class="btn" value="유저 신고">
-              </form>
-             </c:forEach>
-              </c:if>
-            </div>  
-
-          </div>
-
-          <form action="${ pageContext.request.contextPath }/board/commentPro" method="post">
-          	<input type="hidden" name="boardType" value="5">
-          	<input type="hidden" name="userId" value="${ sessionScope.userId }" />
-          	<input type="hidden" name="commId" value="${ pb.QId }" />
-            <div class="commentInput center">
-              <textarea name="content"></textarea>
-              <input type="submit" value="입력">
-            </div>
-          </form>
-
+        </ul>
+        <div class="info1">
+          <div class="name">내용</div>
+          <textarea readonly>${ board.content }</textarea>
         </div>
       </div>
 
     </div>
-  </div>
+  </section>
+<!-- content -->
+
+<!-- comment -->
+  <section class="comment">
+    <h2>덧글 ${ commCount }</h2>
+    <ul class="commentList">
+    <c:if test="${ commCount == 0 }">
+   	  <li class="center">작성된 덧글이 없습니다.</li>
+    </c:if>
+    <c:if test="${ commCount > 0 }">
+    <c:forEach var="b" items="${ commList }">
+      <li style="margin-bottom: 10px;">
+        <ul class="commentInfo center">
+          <li>
+            아이디 : ${ b.userId }
+          </li>
+          <li class="center">
+            작성일 : ${ b.regDate }
+            <c:if test="${ sessionScope.userId != null }">
+            <div class="btn">신고</div>
+            </c:if>
+            <c:if test="${ sessionScope.userId == b.userId }">
+            <a href="${ pageContext.request.contextPath }/board/deleteComm?commId=${ b.commId }&postId=${b.postId}" class="btn">삭제</a>
+            </c:if>
+          </li>
+        </ul>
+        <textarea readonly>${ b.content }</textarea>
+      </li>
+    </c:forEach>
+    </c:if>
+    </ul>
+
+    <form action="${ pageContext.request.contextPath }/board/commentPro" method="post" class="center">
+      <input type="hidden" name="postId" value="${ board.postId }">
+      <input type="hidden" name="userId" value="${ sessionScope.userId }">
+      <input type="hidden" name="boardType" value="${ sessionScope.boardType }">
+      <textarea name="content" required></textarea>
+      <input type="submit" value="작성">
+    </form>
+  </section>
+<!-- comment -->
 
 </body>
 </html>

@@ -72,7 +72,7 @@
         <c:if test="${ normal != null }">
         <c:forEach var="b" items="${ normal }">
         <ul class="center">
-          <li class="center">${ b.userId }</li>
+          <li class="center"><a href="${ pageContext.request.contextPath }/admin/adminSearchUser?userId=${ b.userId }&boardType=0" target="_blank" style="text-decoration: underline">${ b.userId }</a></li>
           <li class="center">${ b.tel }</li>
           <li class="center">${ b.regDate }</li>
           <li class="center">${ b.userReortCnt }</li>

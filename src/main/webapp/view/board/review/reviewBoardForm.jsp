@@ -44,7 +44,7 @@
 
         <div class="contentImg">
           <input type="hidden" name="petImg" value="">
-          <img src="${ pageContext.request.contextPath }/view/images/video_cover_pattern.png" alt="img">
+          <img src="${ pageContext.request.contextPath }/view/images/video_cover_pattern.png" id="pic" alt="img">
           <a href="javascript:win_upload()" class="btn">사진넣기</a>
         </div>
 
