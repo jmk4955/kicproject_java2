@@ -12,6 +12,7 @@
       background-image: url("${ pageContext.request.contextPath }/view/images/banner/adoptBoard.jpg");
       background-position: center;
     }
+    <%@ include file="../../../common/cookielogin.jsp" %>
   </style>
 </head>
 <body>

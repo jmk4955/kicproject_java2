@@ -8,6 +8,9 @@
 <meta charset="UTF-8">
 
 <link rel="stylesheet" href="${ pageContext.request.contextPath }/view/css/petBoard.css">
+<style>
+	<%@ include file="../../../common/cookielogin.jsp" %>
+</style>
 </head>
 <body>
 	<!-- boardImg -->

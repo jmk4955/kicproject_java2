@@ -7,6 +7,7 @@
 
 <style type="text/css">
 	<%@ include file="css/main.css"%>
+	<%@ include file="../common/cookielogin.jsp" %>
 </style>
 <script src="${ pageContext.request.contextPath }/view/js/main.js" defer></script>
 </head>

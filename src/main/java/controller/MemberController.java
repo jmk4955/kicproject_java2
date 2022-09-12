@@ -73,17 +73,33 @@ public class MemberController {
 	}
 	
 	@RequestMapping("signInPro")
-	public String signInPro(String userId, String pwd) throws Exception {
+	public String signInPro(String userId, String pwd, String autoLogin) throws Exception {
 		
-		String msg = "";
+		String msg = "유효하지 않은 회원입니다.";
 		String url = "/member/signIn";
 		
 		Member mem = memDao.memberOne(userId);
 		
 		if(mem != null) {
+			String userType = Integer.toString(mem.getUserType());
 			if (pwd.equals(mem.getPwd())) {
 				session.setAttribute("userId", userId);
 				session.setAttribute("userType", mem.getUserType());
+				
+				if (autoLogin != null) {
+					Cookie cookie1 = new Cookie("userId", userId);
+					cookie1.setMaxAge(60 * 60 * 24 * 30);
+					cookie1.setPath("/");
+					response.addCookie(cookie1);
+					
+					if(userType.equals("2")) {
+						Cookie cookie2 = new Cookie("userType", userType);
+						cookie2.setMaxAge(60 * 60 * 24 * 30);
+						cookie2.setPath("/");
+						response.addCookie(cookie2);
+					}
+				}
+				
 				msg = mem.getUserId() + "님이 로그인 하였습니다.";
 				url = "/member/index";
 			} else {
@@ -136,7 +152,20 @@ public class MemberController {
 	public String logout() throws Exception {
 
 		String userId = (String) session.getAttribute("userId");
+		Member mem = memDao.memberOne(userId);
+		String userType = Integer.toString(mem.getUserType());
+		
+		Cookie cookie1 = new Cookie("userId", userId);
+		cookie1.setMaxAge(0);
+		cookie1.setPath("/");
+		response.addCookie(cookie1);
+		
+		Cookie cookie2 = new Cookie("userType", userType);
+		cookie2.setMaxAge(0);
+		cookie2.setPath("/");
+		response.addCookie(cookie2);
 
+		
 		session.invalidate();
 
 		request.setAttribute("msg", userId + "님이 로그아웃 되었습니다.");
