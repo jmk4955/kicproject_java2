@@ -52,4 +52,12 @@ public class MemberDAO {
 		return num;
 	}
 	
+	public int updateAuth(String userId, int userType) {
+		map.clear();
+		map.put("userId", userId);
+		map.put("userType", userType);
+		int num = session.update(NS+"updateAuth", map);
+		return num;
+	}
+	
 }

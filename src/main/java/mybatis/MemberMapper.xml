@@ -29,6 +29,10 @@
 		update hanuser set pwd = #{pwd} where userId = #{userId} 
 	</update>
 	
+	<update id="updateAuth" parameterType="map">
+		update hanuser set userType=#{userType} where userId = #{userId} 
+	</update>
+	
 </mapper>
 
 

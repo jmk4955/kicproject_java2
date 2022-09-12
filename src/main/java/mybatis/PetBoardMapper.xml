@@ -23,6 +23,12 @@
 		order by postId desc
 	</select>
 	
+	<select id="boardDis" parameterType="int" resultType="petBoard">
+		select * from petboard 
+		where postDisable = 1 and boardId = #{boardId}
+		order by postId desc
+	</select>
+	
 	<insert id="boardInsert" parameterType="petBoard">
 		insert into petboard values (postId_seq.nextval, 0, 0, #{userId}, #{tel}, #{content}, #{place}, to_char(sysdate, 'yyyy-mm-dd'), #{petName}, #{petGender}, #{petType}, #{petDate}, #{petImg}, #{petDetail}, #{boardId}, 0)
 	</insert>

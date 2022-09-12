@@ -45,6 +45,11 @@ public class PetBoardDAO {
 		return list;
 	}
 	
+	public List<PetBoard> boardDis(int boardId) {
+		List<PetBoard> list = session.selectList(NS+"boardDis", boardId);
+		return list;
+	}
+	
 	public int boardInsert(PetBoard petBoard) {
 		int num = session.insert(NS+"boardInsert", petBoard);
 		return num;

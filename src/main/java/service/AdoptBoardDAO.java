@@ -39,6 +39,11 @@ public class AdoptBoardDAO {
 		return list;
 	}
 	
+	public List<AdoptBoard> boardDis() {
+		List<AdoptBoard> list = session.selectList(NS+"boardDis");
+		return list;
+	}
+	
 	public int boardInsert(AdoptBoard adoptBoard) {
 		int num = session.insert(NS+"boardInsert", adoptBoard);
 		return num;
