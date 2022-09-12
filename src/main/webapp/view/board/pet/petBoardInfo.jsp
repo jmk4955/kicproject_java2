@@ -7,6 +7,26 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="${ pageContext.request.contextPath }/view/css/petBoardInfo.css">
+  <script type="text/javascript">
+		const confirmDisable = () => {
+
+			const con = confirm("게시물을 삭제하시겠습니까?");
+			if(con) {
+				console.log(con);
+				location.href = "${ pageContext.request.contextPath }/board/disablePost?postId=${board.postId}";
+			} else {
+				console.log(con);
+				return;
+			}
+		}
+  </script>
+  
+  <script type="text/javascript">
+		function win_report(reportType, reportId, repoUserId) {
+			const op = "width=500, height=400, left=50, top=150";
+			open("${pageContext.request.contextPath}/board/reportForm?reportId="+reportId+"&boardType=4&reportType="+reportType+"&repoUserId="+repoUserId, "", op);
+		}
+  </script>
 </head>
 <body>
 	<!-- boardImg -->
@@ -39,7 +59,7 @@
         <div class="box center">
         <c:if test="${ sessionScope.userId == board.userId }">
           <a href="${ pageContext.request.contextPath }/board/petBoardUpdate?postId=${board.postId}" class="btn">수정</a>
-          <a href="${ pageContext.request.contextPath }/board/disablePost?postId=${board.postId}" class="btn">삭제</a>
+		  <a href="javascript:confirmDisable()" class="btn">삭제</a>
         </c:if>
         <c:if test="${ sessionScope.userId != null}">
           <div class="btn">신고</div>

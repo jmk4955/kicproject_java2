@@ -4,14 +4,14 @@
 <mapper namespace="reviewBoard">
 	
 	<select id="boardCount" resultType="int">
-		select nvl(count(*), 0) from reviewBoard where postDisable = 0
+		select nvl(count(*), 0) from reviewBoard where postDisable = 0 and petType = #{petType}
 	</select>
 
 	<select id="boardList" parameterType="map" resultType="reviewBoard">
 		select * from (
 			select rownum rnum, a.* from (
 				select * from reviewBoard 
-					where postDisable = 0
+					where postDisable = 0 and petType = #{petType}
 					order by postId desc
 			) a 
 		) where rnum between #{start} and #{end}
@@ -24,7 +24,7 @@
 	</select>
 	
 	<insert id="boardInsert" parameterType="reviewBoard">
-		insert into reviewBoard values (postId_seq.nextval, 0, 0, 0, #{userId}, #{tel}, #{content}, #{place}, to_char(sysdate, 'yyyy-mm-dd'), #{petName}, #{petGender}, #{petType}, #{petDate}, #{petImg}, #{petDetail}, 0, #{boardId})
+		insert into reviewBoard values (postId_SEQ.nextval, 0, 0, #{userId}, #{subject},  #{content},  to_char(sysdate, 'yyyy-mm-dd'), #{petName}, #{petType}, #{petImg})
 	</insert>
 	
 	<select id="boardOne" parameterType="int" resultType="reviewBoard">
@@ -32,7 +32,7 @@
 	</select>
 	
 	<update id="boardUpdate" parameterType="reviewBoard">
-		update reviewBoard set tel =  #{tel}, content = #{content}, place = #{place}, petName = #{petName}, petGender = #{petGender}, petType=#{petType}, petDate = #{petDate}, petImg = #{petImg}, petDetail = #{petDetail} where postId = #{postId}
+		update reviewBoard set subject = #{subject},  content = #{content},  petName = #{petName} , petType = #{petType}, petImg = #{petImg} where postId = #{postId}
 	</update>
 	
 	<update id="boardDisable" parameterType="int">

@@ -8,9 +8,13 @@
 	</select>
 
 	<select id="boardList" resultType="qnaBoard">
-		select * from qnaBoard 
-		where postDisable = 0
-		order by postId desc
+		select * from (
+			select rownum rnum, a.* from (
+				select * from qnaBoard 
+					where postDisable = 0
+					order by postId desc
+			) a 
+		) where rnum between #{start} and #{end}
 	</select>
 	
 	<select id="boardUser" parameterType="String" resultType="qnaBoard">
@@ -20,15 +24,15 @@
 	</select>
 	
 	<insert id="boardInsert" parameterType="qnaBoard">
-		insert into qnaBoard values (postId_seq.nextval, 0, 0, 0, #{userId}, #{tel}, #{content}, #{place}, to_char(sysdate, 'yyyy-mm-dd'), #{petName}, #{petGender}, #{petType}, #{petDate}, #{petImg}, #{petDetail}, 0, #{boardId})
+		insert into qnaBoard values (postId_seq.nextval, 0,  #{userId}, #{subject}, #{content},  to_char(sysdate, 'yyyy-mm-dd'), 0)
 	</insert>
 	
 	<select id="boardOne" parameterType="int" resultType="qnaBoard">
-		select * from qnaBoard where postId = #{value}
+		select * from qnaBoard where postId = #{postId}
 	</select>
 	
 	<update id="boardUpdate" parameterType="qnaBoard">
-		update qnaBoard set tel =  #{tel}, content = #{content}, place = #{place}, petName = #{petName}, petGender = #{petGender}, petType=#{petType}, petDate = #{petDate}, petImg = #{petImg}, petDetail = #{petDetail} where postId = #{postId}
+		update qnaBoard set subject = #{subject}, content #{content} where postId = #{postId}
 	</update>
 	
 	<update id="boardDisable" parameterType="int">
@@ -36,16 +40,13 @@
 	</update>
 	
 	<delete id="boardDelete" parameterType="int">
-		delete from qnaBoard where postId = #{value}
+		delete from qnaBoard where postId = #{postId}
 	</delete>
 	
 	<update id="readCntUp" parameterType="int">
-		update qnaBoard set readcnt = readcnt + 1 where postId = #{value}
+		update qnaBoard set readcnt = readcnt + 1 where postId = #{postId}
 	</update>
 	
-	<update id="reportCntUp" parameterType="int">
-		update qnaBoard set postreportcnt = postreportcnt + 1 where postId = #{value}
-	</update>
 </mapper>
 
 
