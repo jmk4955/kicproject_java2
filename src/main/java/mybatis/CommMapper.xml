@@ -17,6 +17,10 @@
 		insert into comm values (commId_SEQ.nextval, #{postId}, 0, #{userId}, #{content}, to_char(sysdate, 'yyyy-mm-dd'), #{boardType})
 	</insert>
 	
+	<select id="commUser" parameterType="String" resultType="comm">
+		select * from comm where userId = #{value}
+	</select>
+	
 	<select id="commOne" parameterType="int" resultType="comm">
 		select * from comm where ref = #{value}
 	</select>

@@ -35,6 +35,11 @@ public class CommDAO {
 		return list;
 	}
 	
+	public List<Comm> commUser(String userId) {
+		List<Comm> list = session.selectList(NS+"commUser", userId);
+		return list;
+	}
+	
 	public int commInsert(Comm comm) {
 		int num = session.insert(NS+"commInsert", comm);
 		return num;

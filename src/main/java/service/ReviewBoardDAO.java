@@ -38,6 +38,11 @@ public class ReviewBoardDAO {
 		return list;
 	}
 	
+	public List<ReviewBoard> boardDis() {
+		List<ReviewBoard> list = session.selectList(NS+"boardDis");
+		return list;
+	}
+	
 	public int boardInsert(ReviewBoard reviewBoard) {
 		int num = session.insert(NS+"boardInsert", reviewBoard);
 		return num;

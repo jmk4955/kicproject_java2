@@ -45,7 +45,7 @@ img {
 .boardImg {
   width: 100%;
   height: 300px;
-  background-image: url("/images/banner/petBoard.jpg");
+  background-image: url("${ pageContext.request.contextPath }/view/images/banner/petBoard.jpg");
   background-repeat: no-repeat;
   background-position: top;
   background-size: cover;

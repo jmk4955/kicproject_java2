@@ -58,7 +58,7 @@ public class BoardController {
 	@Autowired
 	ReportDAO reportDao;
 	@Autowired
-	MemberDAO memberDao;
+	MemberDAO memDao;
 	
 //	게시판 페이지
 	@RequestMapping("petBoard")

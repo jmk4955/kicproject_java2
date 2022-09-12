@@ -96,6 +96,17 @@
   font-weight: bold;
   margin-right: 10px;
 }
+.memberSearch .infoBox .userComm h2 {
+  justify-content: space-between;
+}
+.memberSearch .infoBox .userComm h2 .box {
+  height: 100%;
+}
+.memberSearch .infoBox .userComm h2 .box .btn {
+  width: 60px;
+  height: 80%;
+  margin-left: 7px;
+}
 .memberSearch .infoBox .userComm .list {
   width: 100%;
   height: calc(100% - 70px);
@@ -135,4 +146,120 @@
   outline: none;
 }
 
-/*# sourceMappingURL=adminUserList.css.map */
+.disPost {
+  width: calc(100vw - 200px);
+  height: calc(100vh - 80px);
+  padding: 10px;
+}
+.disPost h2 {
+  width: 100%;
+  height: 50px;
+  font-size: 25px;
+  padding: 0 10px;
+  justify-content: space-between;
+  border-bottom: 1px solid #ccc;
+}
+.disPost h2 .box {
+  height: 100%;
+}
+.disPost h2 .box .btn {
+  width: 60px;
+  height: 80%;
+  margin-left: 7px;
+}
+.disPost .list {
+  width: 100%;
+  height: calc(100% - 50px);
+}
+.disPost .list ul {
+  width: 100%;
+  height: 40px;
+  justify-content: flex-start;
+  border-bottom: 1px solid #ccc;
+}
+.disPost .list ul li {
+  width: 12.5%;
+  height: 100%;
+  border-right: 1px solid #ccc;
+}
+.disPost .list ul li.name {
+  background: #F2EFE9;
+  font-weight: bold;
+}
+.disPost .list ul li .btn {
+  width: 60px;
+  height: 80%;
+}
+.disPost .list ul li:nth-of-type(1) {
+  width: 5%;
+}
+.disPost .list ul li:nth-of-type(2), .disPost .list ul li:nth-of-type(3), .disPost .list ul li:nth-of-type(5), .disPost .list ul li:nth-of-type(7), .disPost .list ul li:nth-of-type(8) {
+  width: 10%;
+}
+.disPost .list ul li:nth-of-type(4) {
+  width: 40%;
+  line-height: 40px;
+  padding: 0 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.disPost .list ul li:nth-of-type(6) {
+  width: 5%;
+}
+
+.repoList {
+  width: calc(100vw - 200px);
+  height: calc(100vh - 80px);
+  padding: 10px;
+}
+.repoList h2 {
+  width: 100%;
+  height: 50px;
+  font-size: 25px;
+  justify-content: flex-start;
+  padding: 0 10px;
+  border-bottom: 1px solid #ccc;
+}
+.repoList .box {
+  width: 100%;
+  height: calc(100% - 50px);
+}
+.repoList .box .report {
+  width: 50%;
+  height: 100%;
+  border-right: 1px solid #ccc;
+}
+.repoList .box .report h2 {
+  font-size: 20px;
+}
+.repoList .box .report .list {
+  width: 100%;
+  height: calc(100% - 50px);
+  overflow-y: scroll;
+}
+.repoList .box .report .list ul {
+  width: 100%;
+  height: 40px;
+  justify-content: flex-start;
+  border-bottom: 1px solid #ccc;
+}
+.repoList .box .report .list ul li {
+  height: 100%;
+  border-right: 1px solid #ccc;
+}
+.repoList .box .report .list ul li.name {
+  background: #F2EFE9;
+  font-weight: bold;
+}
+.repoList .box .report .list ul li .btn {
+  width: 80px;
+  height: 80%;
+  font-size: 16px;
+}
+.repoList .box .report .list ul li:nth-of-type(1), .repoList .box .report .list ul li:nth-of-type(3), .repoList .box .report .list ul li:nth-of-type(4) {
+  width: 20%;
+}
+.repoList .box .report .list ul li:nth-of-type(2) {
+  width: 60%;
+}
