@@ -51,8 +51,8 @@
       	</c:if>
 		<c:if test="${ boardCount > 0 }">
 		<c:forEach var="b" items="${ list }">
-        <a href="${ pageContext.request.contextPath }/board/petBoardInfo?postId=${ b.postId }">
           <div class="card">
+           <a href="${ pageContext.request.contextPath }/board/petBoardInfo?postId=${ b.postId }">
             <div class="cardImg">
               <img src="${ pageContext.request.contextPath }/view/board/img/${ b.petImg }" alt="img">
             </div>
@@ -82,8 +82,8 @@
                 <span class="name">조회수 :</span> ${ b.readCnt }
               </li>
             </ul>
+           </a>
           </div>
-        </a>
         </c:forEach>
         </c:if>
 

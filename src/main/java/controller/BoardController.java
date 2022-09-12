@@ -94,11 +94,11 @@ public class BoardController {
 			boardCount = adoptDao.boardCount(petType);
 			request.setAttribute("list", list);
 		} else if(boardType == 3) {
-			List<ReviewBoard> list = reviewDao.boardList(pageInt, limit);
-			boardCount = reviewDao.boardCount();
+			List<ReviewBoard> list = reviewDao.boardList(pageInt, limit, petType);
+			boardCount = reviewDao.boardCount(petType);
 			request.setAttribute("list", list);
 		} else if(boardType == 4) {
-			List<QnABoard> list = qnaDao.boardList();
+			List<QnABoard> list = qnaDao.boardList(pageInt, limit);
 			boardCount = qnaDao.boardCount();
 			request.setAttribute("list", list);
 		}
@@ -186,13 +186,14 @@ public class BoardController {
 		String msg = "게시물 등록 실패";
 		String url = "/board/petBoardForm";
 		
+		int petType = Integer.parseInt(reviewBoard.getPetType());
 		int boardType = (int) session.getAttribute("boardType");
 
 		int num = reviewDao.boardInsert(reviewBoard);
 		
 		if (num > 0) {
 			msg = "게시물을 등록하였습니다.";
-			url = "/board/petBoard?boardType="+boardType;
+			url = "/board/petBoard?boardType="+boardType+"&petType="+petType;
 		}
 
 		request.setAttribute("msg", msg);
@@ -207,11 +208,13 @@ public class BoardController {
 		String msg = "게시물 등록 실패";
 		String url = "/board/petBoardForm";
 
+		int boardType = (int) session.getAttribute("boardType");
+		
 		int num = qnaDao.boardInsert(qnaBoard);
-
+		
 		if (num > 0) {
 			msg = "게시물을 등록하였습니다.";
-			url = "/board/petBoard?boardType=4&petType=0";
+			url = "/board/petBoard?boardType="+boardType+"&petType=0";
 		}
 
 		request.setAttribute("msg", msg);
@@ -238,39 +241,30 @@ public class BoardController {
 
 		return "alert";
 	}
+	
 	/*
-	@RequestMapping("reportPro")
-	public String reportPro(Report report, String repoUserId) throws Exception {
+	 * @RequestMapping("reportPro") public String reportPro(Report report, String
+	 * repoUserId) throws Exception {
+	 * 
+	 * String msg = "신고접수를 실패하였습니다.";
+	 * 
+	 * int boardType = report.getBoardType(); int reportType =
+	 * report.getReportType(); int postId = report.getPostId(); int num =
+	 * reportDao.reportInsert(report);
+	 * 
+	 * if (num > 0) { msg = "신고가 접수 되었습니다."; if (reportType == 1) {
+	 * 
+	 * if (boardType == 0 || boardType == 1) { petDao.reportCntUp(postId); } else if
+	 * (boardType == 2) { adoptDao.reportCntUp(postId); } else if (boardType == 3) {
+	 * reviewDao.reportCntUp(postId); }
+	 * 
+	 * } else if (reportType == 2) { memberDao.reportCntUp(repoUserId); }
+	 * 
+	 * } request.setAttribute("msg", msg);
+	 * 
+	 * return "reportAlert"; }
+	 */
 
-		String msg = "신고접수를 실패하였습니다.";
-		
-		int boardType = report.getBoardType();
-		int reportType = report.getReportType();
-		int postId = report.getPostId();
-		int num = reportDao.reportInsert(report);
-		
-		if (num > 0) {
-			msg = "신고가 접수 되었습니다.";
-			if (reportType == 1) {
-
-				if (boardType == 0 || boardType == 1) {
-					petDao.reportCntUp(postId);
-				} else if (boardType == 2) {
-					adoptDao.reportCntUp(postId);
-				} else if (boardType == 3) {
-					reviewDao.reportCntUp(postId);
-				}
-
-			} else if (reportType == 2) {
-				memberDao.reportCntUp(repoUserId);
-			}
-
-		}
-		request.setAttribute("msg", msg);
-
-		return "reportAlert";
-	}
-	*/
 	
 //	게시판 입력 페이지
 	@RequestMapping("petBoardForm")
@@ -395,15 +389,14 @@ public class BoardController {
 	@RequestMapping("reviewBoardUpdatePro")
 	public String reviewBoardUpdatePro(ReviewBoard reviewBoard) throws Exception {
 
-		String msg = "게시물 등록 실패";
-		String url = "/board/reviewBoard/reviewBoardUpdate";
-
 		int postId = reviewBoard.getPostId();
+		
+		String msg = "게시물 등록 실패";
+		String url = "/board/petBoardInfo?postId=" + postId;
 
 		int num = reviewDao.boardUpdate(reviewBoard);
 		if (num > 0) {
 			msg = "게시물을 등록하였습니다.";
-			url = "/board/reviewBoard/reviewBoardInfo?postId=" + postId;
 		}
 
 		request.setAttribute("msg", msg);
@@ -417,15 +410,14 @@ public class BoardController {
 	@RequestMapping("qnaBoardUpdatePro")
 	public String qnaBoardUpdatePro(QnABoard qnaBoard) throws Exception {
 
-		String msg = "게시물 등록 실패";
-		String url = "/board/qnaBoard/qnaBoardUpdate";
-
 		int postId = qnaBoard.getPostId();
-		int num = qnaDao.boardUpdate(qnaBoard);
+		
+		String msg = "게시물 등록 실패";
+		String url = "/board/petBoardInfo?postId=" + postId;
 
+		int num = qnaDao.boardUpdate(qnaBoard);
 		if (num > 0) {
 			msg = "게시물을 수정하였습니다.";
-			url = "/board/qnaBoard/qnaBoardInfo?postId=" + postId;
 		}
 
 		request.setAttribute("msg", msg);

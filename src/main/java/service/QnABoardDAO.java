@@ -25,8 +25,11 @@ public class QnABoardDAO {
 		return num;
 	}
 	
-	public List<QnABoard> boardList() {
-		List<QnABoard> list = session.selectList(NS+"boardList");
+	public List<QnABoard> boardList(int pageInt, int limit) {
+		map.clear();
+		map.put("start", (pageInt - 1) * limit + 1);
+		map.put("end", (pageInt * limit));
+		List<QnABoard> list = session.selectList(NS+"boardList", map);
 		return list;
 	}
 	
@@ -62,10 +65,6 @@ public class QnABoardDAO {
 	
 	public void readCntUp(int postId) {
 		session.update(NS+"readCntUp", postId);
-	}
-	
-	public void reportCntUp(int postId) {
-		session.update(NS+"reportCntUp", postId);
 	}
 	
 }

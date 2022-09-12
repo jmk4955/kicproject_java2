@@ -20,15 +20,18 @@ public class ReviewBoardDAO {
 	private final static String NS = "reviewBoard.";
 	private static Map map = new HashMap<>();
 	
-	public int boardCount() {
-		int num = session.selectOne(NS+"boardCount");
+	public int boardCount(int petType) {
+		map.clear();
+		map.put("petType", petType);
+		int num = session.selectOne(NS+"boardCount", map);
 		return num;
 	}
 	
-	public List<ReviewBoard> boardList(int pageInt, int limit) {
+	public List<ReviewBoard> boardList(int pageInt, int limit, int petType) {
 		map.clear();
 		map.put("start", (pageInt - 1) * limit + 1);
 		map.put("end", (pageInt * limit));
+		map.put("petType", petType);
 		List<ReviewBoard> list = session.selectList(NS+"boardList", map);
 		return list;
 	}
