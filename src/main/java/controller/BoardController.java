@@ -97,7 +97,7 @@ public class BoardController {
 		request.setAttribute("pageInt", pageInt);
 		
 		if(boardType == 0 || boardType == 1) {
-			return "board/petBoard/petBoard";
+			return "board/pet/petBoard";
 		} else if(boardType == 2) {
 			return "board/adopt/adoptBoard";
 		} else if(boardType == 3) {
@@ -116,7 +116,7 @@ public class BoardController {
 		int boardType = (int) session.getAttribute("boardType");
 		
 		if(boardType == 0 || boardType == 1) {
-			return "board/petBoard/petBoardForm";
+			return "board/pet/petBoardForm";
 		} else if(boardType == 2) {
 			return "board/adopt/adoptBoardForm";
 		} else if(boardType == 3) {
@@ -137,7 +137,7 @@ public class BoardController {
 		int boardType = (int) session.getAttribute("boardType");
 		
 		if(boardType == 0 || boardType == 1) {
-			return "board/petBoard/petBoardInfo";
+			return "board/pet/petBoardInfo";
 		} else if(boardType == 2) {
 			return "board/adopt/adoptBoardInfo";
 		} else if(boardType == 3) {
