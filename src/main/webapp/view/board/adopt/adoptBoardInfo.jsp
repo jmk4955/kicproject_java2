@@ -34,61 +34,65 @@
       <div class="contentHead center">
         <ul class="regDate center">
           <li>
-            <span class="name">작성일 : </span>2022-09-16
+            <span class="name">작성일 : </span>${ board.regDate }
           </li>
           <li>
-            <span class="name">조회수 : </span>99
+            <span class="name">조회수 : </span>${ board.readCnt }
           </li>
         </ul>
 
         <div class="box center">
-          <div class="btn">수정</div>
-          <div class="btn">삭제</div>
+        <c:if test="${ sessionScope.userId == board.userId }">
+          <a href="${ pageContext.request.contextPath }/board/petBoardUpdate?postId=${board.postId}" class="btn">수정</a>
+          <a href="${ pageContext.request.contextPath }/board/disablePost?postId=${board.postId}" class="btn">삭제</a>
+        </c:if>
+        <c:if test="${ sessionScope.userId != null}">
           <div class="btn">신고</div>
-          <div class="btn">목록</div>
+        </c:if>
+          <a href="${ pageContext.request.contextPath }/board/petBoard?boardType=${ boardType }&petType=${ board.petType }" class="btn">목록</a>
         </div>
       </div>
 
       <div class="contentImg">
-        <img src="${ pageContext.request.contextPath }/view/images/dog/profile1.jpg" alt="img">
+        <img src="${ pageContext.request.contextPath }/view/board/img/${ board.petImg }" alt="img">
       </div>
 
       <div class="contentInfo">
         <ul class="center info1">
           <li>
-            <span class="name">이름 : </span>웃음이
+            <span class="name">이름 : </span>${ board.petName }
           </li>
           <li>
-            <span class="name">종류 : </span>강아지
-            <span class="name">성별 : </span>남아
+            <span class="name">종류 : </span>${ board.petType == 0 ? "강아지" : "고양이" }
+            <span class="name">성별 : </span>${ board.petGender == 0 ? "여아" : "남아" }
           </li>
         </ul>
 
         <ul class="center info1">
           <li>
-            <span class="name">특징 : </span>귀여움
+            <span class="name">특징 : </span>${ board.petDetail }
           </li>
           <li>
-            <span class="name">보호자 전화번호 : </span>010-1111-1111
+            <span class="name">보호자 전화번호 : </span>${ board.tel }
           </li>
         </ul>
         
         <ul class="center info1">
           <li>
-            <span class="name">중성화 : </span>완료
+            <span class="name">중성화 : </span>${ board.neuter == 0 ? "미완료" : "완료" }
           </li>
           <li>
-            <span class="name">예방접종 : </span>완료
+            <span class="name">예방접종 : </span>${ board.vaccin == 0 ? "미완료" : "완료" }
           </li>
         </ul>
         <ul class="info1">
           <li>
-            <span class="name">위치 : </span> 인천 강화군 양도면 가능포로 166-13
+            <span class="name">위치 : </span>${ board.place }
           </li>
         </ul>
         <div class="info1">
           <div class="name">상세설명</div>
-          <textarea readonly>test</textarea>
+          <textarea readonly>${ board.content }</textarea>
         </div>
       </div>
 
@@ -98,25 +102,39 @@
 
 <!-- comment -->
   <section class="comment">
-    <h2>덧글</h2>
+    <h2>덧글 ${ commCount }</h2>
     <ul class="commentList">
-      <li>
+    <c:if test="${ commCount == 0 }">
+   	  <li class="center">작성된 덧글이 없습니다.</li>
+    </c:if>
+    <c:if test="${ commCount > 0 }">
+    <c:forEach var="b" items="${ commList }">
+      <li style="margin-bottom: 10px;">
         <ul class="commentInfo center">
           <li>
-            아이디 : test123
+            아이디 : ${ b.userId }
           </li>
           <li class="center">
-            작성일 : 2022-09-22
+            작성일 : ${ b.regDate }
+            <c:if test="${ sessionScope.userId != null }">
             <div class="btn">신고</div>
-            <div class="btn">삭제</div>
+            </c:if>
+            <c:if test="${ sessionScope.userId == b.userId }">
+            <a href="${ pageContext.request.contextPath }/board/deleteComm?commId=${ b.commId }&postId=${b.postId}" class="btn">삭제</a>
+            </c:if>
           </li>
         </ul>
-        <textarea readonly>강아지가 너무 귀엽내요</textarea>
+        <textarea readonly>${ b.content }</textarea>
       </li>
+    </c:forEach>
+    </c:if>
     </ul>
 
-    <form action="#" method="post" class="center">
-      <textarea name="content"></textarea>
+    <form action="${ pageContext.request.contextPath }/board/commentPro" method="post" class="center">
+      <input type="hidden" name="postId" value="${ board.postId }">
+      <input type="hidden" name="userId" value="${ sessionScope.userId }">
+      <input type="hidden" name="boardType" value="${ sessionScope.boardType }">
+      <textarea name="content" required></textarea>
       <input type="submit" value="작성">
     </form>
   </section>

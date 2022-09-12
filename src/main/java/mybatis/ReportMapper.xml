@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="report">
+	
+	<select id="repoList" parameterType="int" resultType="report">
+		select * from report 
+		where reportType = ${value}
+		order by ref desc
+	</select>
+	
+	<insert id="reportInsert" parameterType="report">
+		insert into report values (#{userId}, #{reportId}, report_SEQ.nextval, #{reportText}, #{boardType}, #{reportType})
+	</insert>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

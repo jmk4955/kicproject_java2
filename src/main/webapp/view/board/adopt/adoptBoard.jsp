@@ -33,10 +33,10 @@
       <div class="cardHeader center">
         <div class="box center">
           <label>
-            <input type="radio" name="petType" checked value="0"> 강아지
+            <input type="radio" name="petType" ${ petType == 0 ? "checked" : "" } onchange="redirect(this)" value="0"> 강아지
           </label>
           <label>
-            <input type="radio" name="petType" value="0"> 고양이
+            <input type="radio" name="petType" ${ petType == 1 ? "checked" : "" } onchange="redirect(this)" value="1"> 고양이
           </label>
         </div>
         <a href="${ pageContext.request.contextPath }/board/petBoardForm" class="btn">
@@ -45,39 +45,47 @@
       </div>
 
       <div class="cardList">
-
-        <a href="${ pageContext.request.contextPath }/board/petBoardInfo">
+      
+        <c:if test="${ boardCount == 0 }">
+      		<h2 class="center">아직 게시물이 작성되지 않았습니다.</h2>
+      	</c:if>
+		<c:if test="${ boardCount > 0 }">
+		<c:forEach var="b" items="${ list }">
+        <a href="${ pageContext.request.contextPath }/board/petBoardInfo?postId=${ b.postId }">
           <div class="card">
             <div class="cardImg">
-              <img src="${ pageContext.request.contextPath }/view/images/dog/profile1.jpg" alt="img">
+              <img src="${ pageContext.request.contextPath }/view/board/img/${ b.petImg }" alt="img">
             </div>
             <ul class="cardInfo">
               <li>
-                <span class="name">이름 :</span> 웃음이
+                <span class="name">이름 :</span> ${ b.petName }
               </li>
               <li>
-                <span class="name">종류 :</span> 강아지
+                <span class="name">종류 :</span> ${ b.petType == 0 ? "강아지" : "고양이" }
               </li>
               <li>
-                <span class="name">성별 :</span> 남아
+                <span class="name">성별 :</span> ${ b.petGender == 0 ? "여아" : "남아" }
               </li>
               <li>
-                <span class="name">특징 :</span> 귀여움
+                <span class="name">특징 :</span> ${ b.petDetail }
               </li>
               <li>
-                <span class="name">접종 :</span> 완료
+                <span class="name">접종 :</span> ${ b.vaccin == 0 ? "미완료" : "완료" }
               </li>
               <li>
-                <span class="name">중성화 :</span> 완료
+                <span class="name">중성화 :</span> ${ b.neuter == 0 ? "미완료" : "완료" }
               </li>
               <li>
-                <span class="name">작성일 :</span> 2022-09-16
+                <span class="name">작성일 :</span> ${ b.regDate }
               </li>
               <li>
-                <span class="name">조회수 :</span> 99</li>
+                <span class="name">조회수 :</span> ${ b.readCnt }
+              </li>
             </ul>
           </div>
         </a>
+        </c:forEach>
+        </c:if>
 
       </div>
     </div>
@@ -86,13 +94,18 @@
 <!-- pagination -->
   <div class="modPage center">
     <div class="inner center">
-      <a <c:if test="${ start >= 3}" >href="${ pageContext.request.contextPath }/board/adoptBoard?pageNum=${start-3}" class="active"</c:if>>&laquo;</a>
+      <a <c:if test="${ start >= 3}" >href="${ pageContext.request.contextPath }/board/petBoard?boardType=${ boardType }&pageNum=${start-3}" class="active"</c:if>>&laquo;</a>
       <c:forEach var="p" begin="${ start }" end="${ end }">
-      <a class="active" href="${ pageContext.request.contextPath }/board/adoptBoard?pageNum=${p}&petType=${petType}">${ p }</a>
+      <a class="active" href="${ pageContext.request.contextPath }/board/petBoard?boardType=${ boardType }&pageNum=${p}&petType=${petType}">${ p }</a>
       </c:forEach>
-      <a <c:if test="${ end < maxPage }">href="${ pageContext.request.contextPath }/board/adoptBoard?pageNum=${end + 3}" class="active"</c:if>>&raquo;</a>
+      <a <c:if test="${ end < maxPage }">href="${ pageContext.request.contextPath }/board/petBoard?boardType=${ boardType }&pageNum=${end + 3}" class="active"</c:if>>&raquo;</a>
     </div>
   </div>
 <!-- pagination -->
+  <script>
+	function redirect(type) {
+		window.location.href = '${pageContext.request.contextPath}/board/petBoard?boardType=${sessionScope.boardType}&petType=' + type.value;
+	}
+  </script>
 </body>
 </html>

@@ -22,7 +22,7 @@ import model.PetBoard;
 import model.QnABoard;
 import model.Report;
 import model.ReviewBoard;
-import service.AdoptBoadDAO;
+import service.AdoptBoardDAO;
 import service.CommDAO;
 import service.MemberDAO;
 import service.PetBoardDAO;
@@ -50,7 +50,7 @@ public class BoardController {
 	@Autowired
 	CommDAO commDao;
 	@Autowired
-	AdoptBoadDAO adoptDao;
+	AdoptBoardDAO adoptDao;
 	@Autowired
 	ReviewBoardDAO reviewDao;
 	@Autowired
@@ -98,7 +98,7 @@ public class BoardController {
 			boardCount = reviewDao.boardCount();
 			request.setAttribute("list", list);
 		} else if(boardType == 4) {
-			List<QnABoard> list = qnaDao.boardList(pageInt, limit);
+			List<QnABoard> list = qnaDao.boardList();
 			boardCount = qnaDao.boardCount();
 			request.setAttribute("list", list);
 		}
@@ -126,9 +126,9 @@ public class BoardController {
 		if(boardType == 0 || boardType == 1) {
 			return "board/pet/petBoard";
 		} else if(boardType == 2) {
-			return "board/adoptBoard/adoptBoard";
+			return "board/adopt/adoptBoard";
 		} else if(boardType == 3) {
-			return "board/reviewBoard/reviewBoard";
+			return "board/review/reviewBoard";
 		} else if(boardType == 4) {
 			return "board/qna/qnaBoard";
 		}
@@ -140,25 +140,16 @@ public class BoardController {
 	public String petBoardPro(PetBoard petBoard) throws Exception {
 
 		String msg = "게시물 등록 실패";
-		String url = "/board/petBoard/petBoardForm";
+		String url = "/board/petBoardForm";
 		
-		String userId = (String) session.getAttribute("userId");
-		
-		int boardId = (int) session.getAttribute("boardType");
 		int petType = Integer.parseInt(petBoard.getPetType());
-		
-		if (boardId != 0 && boardId != 1) {
-			boardId = 0;
-		}
-		
-		petBoard.setBoardId(boardId); // 우선 공지사항
-		petBoard.setUserId(userId);
+		int boardType = (int) session.getAttribute("boardType");
 		
 		int num = petDao.boardInsert(petBoard);
 		
 		if (num > 0) {
 			msg = "게시물을 등록하였습니다.";
-			url = "/board/petBoard/petBoard?petType=" + petType;
+			url = "/board/petBoard?boardType="+boardType+"&petType="+petType;
 		}
 
 		request.setAttribute("msg", msg);
@@ -171,17 +162,16 @@ public class BoardController {
 	public String adoptBoardPro(AdoptBoard adoptBoard) throws Exception {
 
 		String msg = "게시물 등록 실패";
-		String url = "/board/adoptBoard/adoptBoardForm";
-		
-		String userId = (String) session.getAttribute("userId");
-		adoptBoard.setUserId(userId);
+		String url = "/board/petBoardForm";
 		
 		int petType = Integer.parseInt(adoptBoard.getPetType());
+		int boardType = (int) session.getAttribute("boardType");
+		
 		int num = adoptDao.boardInsert(adoptBoard);
 		
 		if (num > 0) {
 			msg = "게시물을 등록하였습니다.";
-			url = "/board/adoptBoard/adoptBoard?petType=" + petType;
+			url = "/board/petBoard?boardType="+boardType+"&petType="+petType;
 		}
 
 		request.setAttribute("msg", msg);
@@ -194,13 +184,15 @@ public class BoardController {
 	public String reviewBoardPro(ReviewBoard reviewBoard) throws Exception {
 
 		String msg = "게시물 등록 실패";
-		String url = "/board/reviewBoard/reviewBoardForm";
+		String url = "/board/petBoardForm";
+		
+		int boardType = (int) session.getAttribute("boardType");
 
 		int num = reviewDao.boardInsert(reviewBoard);
 		
 		if (num > 0) {
 			msg = "게시물을 등록하였습니다.";
-			url = "/board/reviewBoard/reviewBoard";
+			url = "/board/petBoard?boardType="+boardType;
 		}
 
 		request.setAttribute("msg", msg);
@@ -231,36 +223,22 @@ public class BoardController {
 	@RequestMapping("commentPro")
 	public String commentPro(Comm comm) throws Exception {
 
-		String msg = "덧글 작성 실패";
-		String url = "/board/petBoard/petBoard?petType=0";
-
-		int boardType = comm.getBoardType();
 		int postId = comm.getPostId();
-		int commId = comm.getCommId();
-		int num = commDao.boardInsert(comm);
+		String msg = "덧글 작성 실패";
+		String url = "/board/petBoardInfo?postId=" + postId;
 		
-		if (boardType == 0 || boardType == 1) {
-			url = "/board/petBoard/petBoardInfo?postId=" + postId;
-		} else if (boardType == 2) {
-			url = "/board/adoptBoard/adoptBoardInfo?postId=" + postId;
-		} else if (boardType == 3) {
-			url = "/board/reviewBoard/reviewBoardInfo?postId=" + postId;
-		} else if (boardType == 4) {
-			url = "/board/qnaBoard/qnaBoardInfo?postId=" + postId;
-		}
-
+		int num = commDao.commInsert(comm);
+		
 		if (num > 0) {
 			msg = "덧글을 작성하였습니다.";
 		}
 
-		request.setAttribute("commId", commId);
 		request.setAttribute("msg", msg);
 		request.setAttribute("url", url);
 
 		return "alert";
-
 	}
-	
+	/*
 	@RequestMapping("reportPro")
 	public String reportPro(Report report, String repoUserId) throws Exception {
 
@@ -292,6 +270,7 @@ public class BoardController {
 
 		return "reportAlert";
 	}
+	*/
 	
 //	게시판 입력 페이지
 	@RequestMapping("petBoardForm")
@@ -302,11 +281,11 @@ public class BoardController {
 		if(boardType == 0 || boardType == 1) {
 			return "board/pet/petBoardForm";
 		} else if(boardType == 2) {
-			return "board/adoptBoard/adoptBoardForm";
+			return "board/adopt/adoptBoardForm";
 		} else if(boardType == 3) {
-			return "board/reviewBoard/reviewBoardForm";
+			return "board/review/reviewBoardForm";
 		} else if(boardType == 4) {
-			return "board/qnaBoard/qnaBoardForm";
+			return "board/qna/qnaBoardForm";
 		}
 		
 		return "index";
@@ -314,18 +293,62 @@ public class BoardController {
 	
 //	게시판 입력 페이지
 	@RequestMapping("petBoardInfo")
-	public String petBoardInfo() throws Exception {
+	public String petBoardInfo(int postId) throws Exception {
+		
+		int boardType = (int) session.getAttribute("boardType");
+		
+		List<Comm> commList = commDao.commList(postId, boardType);
+		int commCount = commDao.commCount(postId, boardType);
+		
+		request.setAttribute("commList", commList);
+		request.setAttribute("commCount", commCount);
+		
+		if(boardType == 0 || boardType == 1) {
+			petDao.readCntUp(postId);
+			PetBoard petBoard = petDao.boardOne(postId);
+			request.setAttribute("board", petBoard);
+			return "board/pet/petBoardInfo";
+		} else if(boardType == 2) {
+			adoptDao.readCntUp(postId);
+			AdoptBoard adoptBoard = adoptDao.boardOne(postId);
+			request.setAttribute("board", adoptBoard);
+			return "board/adopt/adoptBoardInfo";
+		} else if(boardType == 3) {
+			ReviewBoard reviewBoard = reviewDao.boardOne(postId);
+			request.setAttribute("board", reviewBoard);
+			return "board/review/reviewBoardInfo";
+		} else if(boardType == 4) {
+			qnaDao.readCntUp(postId);
+			QnABoard qnaBoard = qnaDao.boardOne(postId);
+			request.setAttribute("board", qnaBoard);
+			return "board/qna/qnaBoardInfo";
+		}
+		
+		return "index";
+	}
+	
+//	게시판 입력 페이지
+	@RequestMapping("petBoardUpdate")
+	public String petBoardUpdate(int postId) throws Exception {
 		
 		int boardType = (int) session.getAttribute("boardType");
 		
 		if(boardType == 0 || boardType == 1) {
-			return "board/pet/petBoardInfo";
+			PetBoard petBoard = petDao.boardOne(postId);
+			request.setAttribute("board", petBoard);
+			return "board/pet/petBoardUpdate";
 		} else if(boardType == 2) {
-			return "board/adoptBoard/adoptBoardInfo";
+			AdoptBoard adoptBoard = adoptDao.boardOne(postId);
+			request.setAttribute("board", adoptBoard);
+			return "board/adopt/adoptBoardUpdate";
 		} else if(boardType == 3) {
-			return "board/reviewBoard/reviewBoardInfo";
+			ReviewBoard reviewBoard = reviewDao.boardOne(postId);
+			request.setAttribute("board", reviewBoard);
+			return "board/review/reviewBoardUpdate";
 		} else if(boardType == 4) {
-			return "board/qnaBoard/qnaBoardInfo";
+			QnABoard qnaBoard = qnaDao.boardOne(postId);
+			request.setAttribute("board", qnaBoard);
+			return "board/qna/qnaBoardUpdate";
 		}
 		
 		return "index";
@@ -333,16 +356,15 @@ public class BoardController {
 	
 	@RequestMapping("petBoardUpdatePro")
 	public String petBoardUpdatePro(PetBoard petBoard) throws Exception {
-
-		String msg = "게시물 등록 실패";
-		String url = "/board/petBoard/petBoardUpdate";
-
+		
 		int postId = petBoard.getPostId();
+		
+		String msg = "게시물 수정 실패";
+		String url = "/board/petBoardInfo?postId=" + postId;
 
 		int num = petDao.boardUpdate(petBoard);
 		if (num > 0) {
 			msg = "게시물을 수정하였습니다.";
-			url = "/board/petBoard/petBoardInfo?postId=" + postId;
 		}
 
 		request.setAttribute("msg", msg);
@@ -353,16 +375,15 @@ public class BoardController {
 	
 	@RequestMapping("adoptBoardUpdatePro")
 	public String adoptBoardUpdatePro(AdoptBoard adoptBoard) throws Exception {
-
-		String msg = "게시물 등록 실패";
-		String url = "/board/adoptBoard/adoptBoardUpdate";
-
+		
 		int postId = adoptBoard.getPostId();
+		
+		String msg = "게시물 수정 실패";
+		String url = "/board/petBoardInfo?postId=" + postId;
 
 		int num = adoptDao.boardUpdate(adoptBoard);
 		if (num > 0) {
 			msg = "게시물을 수정하였습니다.";
-			url = "/board/adoptBoard/adoptBoardInfo?postId=" + postId;
 		}
 
 		request.setAttribute("msg", msg);
@@ -391,6 +412,8 @@ public class BoardController {
 		return "alert";
 	}
 	
+	
+	
 	@RequestMapping("qnaBoardUpdatePro")
 	public String qnaBoardUpdatePro(QnABoard qnaBoard) throws Exception {
 
@@ -410,13 +433,59 @@ public class BoardController {
 
 		return "alert";
 	}
+	
+	@RequestMapping("disablePost")
+	public String disablePost(int postId) throws Exception {
 
+		int boardType = (int) session.getAttribute("boardType");
+		
+		String msg = "게시물 삭제를 실패하였습니다.";
+		String url = "/board/petBoardInfo?postId="+postId;
+		
+		int num = 0;
+		
+		if(boardType == 0 || boardType == 1) {
+			num = petDao.boardDisable(postId);
+		} else if(boardType == 2) {
+			num = adoptDao.boardDisable(postId);
+		} else if(boardType == 3) {
+			num = reviewDao.boardDisable(postId);
+		} else if(boardType == 4) {
+			num = qnaDao.boardDisable(postId);
+		}
+		
+		if(num > 0) {
+			msg = "게시물을 삭제 하였습니다.";
+			url = "/board/petBoard?boardType="+boardType+"&petType=0";
+		}
+		
+		request.setAttribute("msg", msg);
+		request.setAttribute("url", url);
+		
+		return "alert";
+	}
+	
+	@RequestMapping("deleteComm")
+	public String deleteComm(int commId, int postId) throws Exception {
+		
+		String msg = "덧글 삭제를 실패하였습니다.";
+		String url = "/board/petBoardInfo?postId="+postId;
+		
+		int num = commDao.commDelete(commId);
+		
+		if(num > 0) {
+			msg = "덧글을 삭제 하였습니다.";
+		}
+		
+		request.setAttribute("msg", msg);
+		request.setAttribute("url", url);
+		
+		return "alert";
+	}
 	
 	@RequestMapping("pictureimgForm")
 	public String pictureimgForm() throws Exception {
-
 		return "board/pictureimgForm";
-
 	}
 
 	@RequestMapping("pictureimgPro")
@@ -436,7 +505,6 @@ public class BoardController {
 
 		request.setAttribute("filename", filename);
 		return "board/pictureimgPro";
-
 	}
 
 }

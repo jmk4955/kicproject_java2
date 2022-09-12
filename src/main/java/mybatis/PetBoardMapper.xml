@@ -17,8 +17,14 @@
 		) where rnum between #{start} and #{end}
 	</select>
 	
+	<select id="boardUser" parameterType="map" resultType="petBoard">
+		select * from petboard 
+		where postDisable = 0 and userId = #{userId} and boardId = #{boardId}
+		order by postId desc
+	</select>
+	
 	<insert id="boardInsert" parameterType="petBoard">
-		insert into petboard values (postId_seq.nextval, 0, 0, 0, #{userId}, #{tel}, #{content}, #{place}, to_char(sysdate, 'yyyy-mm-dd'), #{petName}, #{petGender}, #{petType}, #{petDate}, #{petImg}, #{petDetail}, 0, #{boardId})
+		insert into petboard values (postId_seq.nextval, 0, 0, #{userId}, #{tel}, #{content}, #{place}, to_char(sysdate, 'yyyy-mm-dd'), #{petDetail}, #{petName}, #{petGender}, #{petType}, #{petImg}, #{petDate}, #{boardId}, 0)
 	</insert>
 	
 	<select id="boardOne" parameterType="int" resultType="petBoard">
@@ -26,7 +32,7 @@
 	</select>
 	
 	<update id="boardUpdate" parameterType="petBoard">
-		update petboard set tel =  #{tel}, content = #{content}, place = #{place}, petName = #{petName}, petGender = #{petGender}, petType=#{petType}, petDate = #{petDate}, petImg = #{petImg}, petDetail = #{petDetail} where postId = #{postId}
+		update petboard set tel = ${tel}, content = #{content}, place = #{place}, petDetail = #{petDetail}, petName = #{petName}, petGender = #{petGender}, petType=#{petType}, petImg = #{petImg}, petDate = #{petDate} where postId = #{postId}
 	</update>
 	
 	<update id="boardDisable" parameterType="petBoard">

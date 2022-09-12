@@ -1,0 +1,138 @@
+.memberList {
+  width: calc(100vw - 200px);
+  height: calc(100vh - 80px);
+}
+.memberList article {
+  width: 50%;
+  height: 100%;
+  padding: 30px;
+  border-right: 1px solid #ccc;
+  overflow-y: scroll;
+}
+.memberList article h2 {
+  width: 100%;
+  height: 40px;
+  font-size: 25px;
+  justify-content: flex-start;
+}
+.memberList article ul {
+  width: 100%;
+  height: 40px;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+.memberList article ul.name {
+  font-weight: bold;
+  background: #F2EFE9;
+}
+.memberList article ul li {
+  width: 16.6666666667%;
+  height: 100%;
+  border-right: 1px solid #ccc;
+}
+.memberList article ul li:nth-of-type(1) {
+  border-left: 1px solid #ccc;
+  width: 18%;
+}
+.memberList article ul li:nth-of-type(2) {
+  width: 22%;
+}
+.memberList article ul li:nth-of-type(3) {
+  width: 20%;
+}
+.memberList article ul li:nth-of-type(4) {
+  width: 10%;
+}
+.memberList article ul li:nth-of-type(5) {
+  width: 15%;
+}
+.memberList article ul li:nth-of-type(6) {
+  width: 15%;
+}
+.memberList article ul li .btn {
+  width: 80%;
+  height: 80%;
+}
+
+.memberSearch {
+  width: calc(100vw - 200px);
+  height: calc(100vh - 80px);
+}
+.memberSearch form {
+  width: 100%;
+  height: 40px;
+  margin-top: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ccc;
+}
+.memberSearch .infoBox {
+  width: 100%;
+  height: calc(100% - 60px);
+}
+.memberSearch .infoBox article {
+  width: 33.3333333333%;
+  height: 100%;
+  padding: 10px;
+  border-right: 1px solid #ccc;
+}
+.memberSearch .infoBox article h2 {
+  width: 100%;
+  height: 40px;
+  margin-bottom: 30px;
+}
+.memberSearch .infoBox article ul {
+  width: 100%;
+}
+.memberSearch .infoBox article ul li {
+  width: 100%;
+  height: 40px;
+  border: 1px solid #ccc;
+  justify-content: flex-start;
+}
+.memberSearch .infoBox article ul li .name {
+  height: 100%;
+  width: 20%;
+  background: #F2EFE9;
+  font-weight: bold;
+  margin-right: 10px;
+}
+.memberSearch .infoBox .userComm .list {
+  width: 100%;
+  height: calc(100% - 70px);
+  position: relative;
+  overflow-y: scroll;
+}
+.memberSearch .infoBox .userComm .list > li {
+  height: 80px;
+  margin-bottom: 10px;
+}
+.memberSearch .infoBox .userComm .list > li ul {
+  width: 100%;
+  height: 40px;
+}
+.memberSearch .infoBox .userComm .list > li ul li.name {
+  background: #F2EFE9;
+}
+.memberSearch .infoBox .userComm .list > li ul li {
+  border: none;
+  border-bottom: 1px solid #ccc;
+}
+.memberSearch .infoBox .userComm .list > li ul li:nth-of-type(1) {
+  width: 50%;
+}
+.memberSearch .infoBox .userComm .list > li ul li span {
+  width: 70%;
+}
+.memberSearch .infoBox .userComm .list > li ul li .btn {
+  width: 60px;
+  height: 80%;
+  margin-left: 20px;
+}
+.memberSearch .infoBox .userComm .list > li textarea {
+  width: 100%;
+  height: 40px;
+  resize: none;
+  outline: none;
+}
+
+/*# sourceMappingURL=adminUserList.css.map */

@@ -1,6 +1,6 @@
 package model;
 
-public class ReviewBoard extends Object{
+public class ReviewBoard {
 
 	int postId;
 	int postDisable;

@@ -5,11 +5,49 @@
 <configuration>
 	
 	<typeAliases>
+	
+	<!-- 회원관련 -->
+		<typeAlias type="model.Member" alias="member" />
+	<!-- 회원관련 -->	
+	
+	<!-- 게시판 관련 -->
 		<typeAlias type="model.PetBoard" alias="petBoard" />
+		<typeAlias type="model.AdoptBoard" alias="adoptBoard" />
+		<typeAlias type="model.ReviewBoard" alias="reviewBoard" />
+		<typeAlias type="model.QnABoard" alias="qnaBoard" />
+	<!-- 게시판 관련 -->
+	
+	<!-- 덧글 -->
+		<typeAlias type="model.Comm" alias="comm" />
+	<!-- 덧글 -->
+	
+	<!-- 신고 -->
+		<typeAlias type="model.Report" alias="report" />
+	<!-- 신고 -->
+	
 	</typeAliases>
 	
 	<mappers><!-- sql 구문 -->
+	
+	<!-- 회원관련 -->
+		<mapper resource="mybatis/MemberMapper.xml"/>
+	<!-- 회원관련 -->
+	
+	<!-- 게시판 관련 -->
 		<mapper resource="mybatis/PetBoardMapper.xml"/>
+		<mapper resource="mybatis/AdoptBoardMapper.xml"/>
+		<mapper resource="mybatis/ReviewBoardMapper.xml"/>
+		<mapper resource="mybatis/QnABoardMapper.xml"/>
+	<!-- 게시판 관련 -->
+	
+	<!-- 덧글 -->
+		<mapper resource="mybatis/CommMapper.xml"/>
+	<!-- 덧글 -->
+	
+	<!-- 신고 -->
+		<mapper resource="mybatis/ReportMapper.xml"/>
+	<!-- 신고 -->
+	
 	</mappers>
 	
 </configuration>

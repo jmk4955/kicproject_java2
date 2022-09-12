@@ -1,6 +1,6 @@
 package model;
 
-public class QnABoard extends Object{
+public class QnABoard {
 	int postId;
 	int postDisable;
 	String userId;

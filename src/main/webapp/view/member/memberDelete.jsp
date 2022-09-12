@@ -15,9 +15,9 @@
       <h2 class="center">마이 페이지</h2>
 
       <ul>
-        <a href="#"><li class="center">내정보</li></a>
-        <a href="#"><li class="center">정보 수정</li></a>
-        <a href="#"><li class="center active">회원 탈퇴</li></a>
+        <a href="${ pageContext.request.contextPath }/member/memberInfo?boardType=0"><li class="center">내정보</li></a>
+        <a href="${ pageContext.request.contextPath }/member/memberUpdate"><li class="center">정보 수정</li></a>
+        <a href="${ pageContext.request.contextPath }/member/memberDelete"><li class="center active">회원 탈퇴</li></a>
       </ul>
     </nav>
     <!-- memberMenu -->
@@ -26,7 +26,7 @@
     <section class="memberInfo center">
       
       <ul>
-        <form action="#" method="post">
+        <form action="${ pageContext.request.contextPath }/member/memberDeletePro" method="post">
           <h2>회원 탈퇴</h2>
           <li>
             <span class="name center">비밀번호</span><input type="password" name="pwd">

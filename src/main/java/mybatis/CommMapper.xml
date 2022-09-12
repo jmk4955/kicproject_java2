@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="comm">
+	
+	<select id="commCount" parameterType="map" resultType="int">
+		select nvl(count(*), 0) from comm where postId = ${postId} and boardType = ${boardType}
+	</select>
+	
+	<select id="commList" parameterType="map" resultType="comm">
+		select * from comm 
+		where postId = ${postId}
+		order by commId desc
+	</select>
+	
+	<insert id="commInsert" parameterType="comm">
+		insert into comm values (commId_SEQ.nextval, #{postId}, 0, #{userId}, #{content}, to_char(sysdate, 'yyyy-mm-dd'), #{boardType})
+	</insert>
+	
+	<select id="commOne" parameterType="int" resultType="comm">
+		select * from comm where ref = #{value}
+	</select>
+	
+	<delete id="commDelete" parameterType="int">
+		delete from comm where commId = #{value}
+	</delete>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

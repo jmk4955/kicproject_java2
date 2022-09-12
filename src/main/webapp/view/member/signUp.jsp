@@ -71,7 +71,7 @@
 			form.pwd.focus();
 			return false;
 		} else if (form.pwd.value != form.pwdOk.value) {
-			alert("변경 비밀번호 와 재입력 비밀번호가 일치하지 않습니다.");
+			alert("비밀번호 와 재입력 비밀번호가 일치하지 않습니다.");
 			form.pwdOk.value = "";
 			form.pwdOk.focus();
 			return false;

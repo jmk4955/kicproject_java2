@@ -6,95 +6,114 @@
 <html>
 <head>
 <meta charset="UTF-8">
-
-<style type="text/css">
-	<%@ include file="../../css/petBoardForm.css"%>
+<link rel="stylesheet" href="${ pageContext.request.contextPath }/view/css/petBoardForm.css">
+<style>
+  .boardImg {
+    background-image: url("${ pageContext.request.contextPath }/view/images/banner/adoptBoard.jpg");
+    background-position: center;
+  }
 </style>
-
-<script type="text/javascript">
+  
+  <script type="text/javascript">
 		function win_upload() {
 			const op = "width=500, height=150, left=50, top=150";
 			open("${pageContext.request.contextPath}/board/pictureimgForm", "", op);
 		}
 </script>
-
 </head>
 <body>
 	<!-- boardImg -->
-  <div class="boardImg center">
-    <div class="box center">
-      <h2 class="boardName">보호중인 동물</h2>
-      <div class="bar"></div>
-      <p>
-        반려동물도 주인을 그리워하며 기다릴거에요. <br>
-        포기하지마세요!
-      </p>
-    </div>
+<div class="boardImg center">
+  <div class="box center">
+    <h2 class="boardName">입양공고</h2>
+    <div class="bar"></div>
+    <p>
+      입양은 호기심이 아닌 책임입니다.
+    </p>
   </div>
+</div>
 <!-- boardImg -->
 
 <!-- content -->
-  <form onsubmit="return submitLengthCheck(this)" action="${ pageContext.request.contextPath }/board/petBoardPro" name="f" method="post">
-  	<input type="hidden" name="userId" value="${ sessionScope.userId }"/>
-  	<input type="hidden" name="boardId" value="${ sessionScope.boardType }"/>
+  <form action="${ pageContext.request.contextPath }/board/adoptBoardUpdatePro" name="f" method="post">
+  <input type="hidden" name="userId" value="${ sessionScope.userId }"/>
+  <input type="hidden" name="postId" value="${ board.postId }">
     <section class="content">
       <div class="inner center">
 
         <div class="contentImg">
-        	<input type="hidden" name="petImg" value="">
-          <img src="${ pageContext.request.contextPath }/view/images/video_cover_pattern.png" alt="img" id="pic">
+        <input type="hidden" name="petImg" value="${board.petImg}">
+          <img src="${ pageContext.request.contextPath }/view/board/img/${board.petImg}" alt="img" id="pic">
           <a href="javascript:win_upload()" class="btn">사진넣기</a>
         </div>
 
         <div class="contentInfo">
           <ul class="center info1">
             <li class="center">
-              <span class="name">이름 : </span><input name="petName" class="petName" type="text">
+              <span class="name">이름 : </span><input class="petName" value="${ board.petName }" name="petName" type="text">
             </li>
             <li class="center">
               <span class="name">종류 : </span>
               <label>
-                <input type="radio" name="petType" checked value="0">강아지
+                <input type="radio" name="petType" ${ board.petType == 0 ? "checked" : "" } value="0">강아지
               </label>
               <label>
-                <input type="radio" name="petType" value="1">고양이
+                <input type="radio" name="petType" ${ board.petType == 1 ? "checked" : "" } value="1">고양이
               </label>
             </li>
             <li class="center">
               <span class="name">성별 : </span>
               <label>
-                <input type="radio" name="petGender" checked value="0">남아
+                <input type="radio" name="petGender" ${ board.petGender == 0 ? "checked" : "" } value="0">남아
               </label>
               <label>
-                <input type="radio" name="petGender" value="1">여아
+                <input type="radio" name="petGender" ${ board.petGender == 1 ? "checked" : "" } value="1">여아
               </label>
             </li>
           </ul>
 
           <ul class="center info1">
             <li class="center">
-              <span class="name">특징 : </span><input class="petDetail" name="petDetail" type="text">
+              <span class="name">특징 : </span><input class="petDetail" value="${ board.petDetail }" name="petDetail" type="text">
             </li>
             <li class="center">
-              <span class="name">보호자 전화번호 : </span><input  type="number" name="tel" oninput="maxLengthCheck(this)" maxlength="11" placeholder="예) 01012345678" required>
+              <span class="name">전화번호 : </span><input class="tel" name="tel" value="${ board.tel }" type="number" placeholder="예) 01012345678">
+            </li>
+          </ul>
+
+          <ul class="info1 center">
+            <li class="center">
+              <span class="name">중성화 : </span>
+              <label>
+                <input type="radio" name="neuter" ${ board.neuter == 0 ? "checked" : "" } value="0">미완료
+              </label>
+              <label>
+                <input type="radio" name="neuter" ${ board.neuter == 1 ? "checked" : "" } value="1">완료
+              </label>
+            </li>
+            <li class="center">
+              <span class="name">예방접종 : </span>
+              <label>
+                <input type="radio" name="vaccin" ${ board.vaccin == 0 ? "checked" : "" } value="0">미완료
+              </label>
+              <label>
+                <input type="radio" name="vaccin" ${ board.vaccin == 1 ? "checked" : "" } value="1">완료
+              </label>
             </li>
           </ul>
           
           <ul class="center info1">
             <li class="center">
-              <span class="name">${ boardType == 0 ? "발견장소" : "분실장소" } : </span><input class="place" name="place" id="roadAddress" type="text" readonly><div onclick="execDaumPostcode()" class="btn">주소검색</div>
-            </li>
-            <li>
-              <span class="name">${ boardType == 0 ? "발견날짜" : "분실날짜" } : </span><input type="date"  name="petDate">
+              <span class="name">위치 : </span><input value="${ board.place }" class="place" name="place" id="roadAddress" type="text" readonly><div onclick="execDaumPostcode()" class="btn">주소검색</div>
             </li>
           </ul>
           <div class="info1 explain">
             <div class="name">상세설명</div>
-            <textarea name="content"></textarea>
+            <textarea name="content">${ board.content }</textarea>
           </div>
 
           <div class="center submit">
-            <input type="submit" value="게시물 작성" class="btn"> <div class="btn list">목록</div>
+            <input type="submit" value="게시물 수정" class="btn"> <div class="btn list">목록</div>
           </div>
         </div>
 
@@ -102,7 +121,6 @@
     </section>
   </form>
 <!-- content -->
-
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
 
@@ -186,27 +204,3 @@ const submitLengthCheck = (form) => {
 </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -1,6 +1,6 @@
 package model;
 
-public class Report extends Object {
+public class Report {
 	
 	int postId;
 	int reportId;

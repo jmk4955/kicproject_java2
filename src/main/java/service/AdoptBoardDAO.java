@@ -8,55 +8,49 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import model.AdoptBoard;
 import model.PetBoard;
 
 @Component
-public class PetBoardDAO {
+public class AdoptBoardDAO {
 
 	@Autowired
 	SqlSessionTemplate session;
 	
-	private final static String NS = "petBoard.";
+	private final static String NS = "adoptBoard.";
 	private static Map map = new HashMap<>();
 	
-	public int boardCount(int boardId, int petType) {
-		map.clear();
-		map.put("boardId", boardId);
-		map.put("petType", petType);
-		int num = session.selectOne(NS+"boardCount", map);
+	public int boardCount(int petType) {
+		int num = session.selectOne(NS+"boardCount", petType);
 		return num;
 	}
 	
-	public List<PetBoard> boardList(int pageInt, int limit, int boardId, int petType) {
+	public List<AdoptBoard> boardList(int pageInt, int limit, int petType) {
 		map.clear();
-		map.put("boardId", boardId);
 		map.put("start", (pageInt - 1) * limit + 1);
 		map.put("end", (pageInt * limit));
 		map.put("petType", petType);
-		List<PetBoard> list = session.selectList(NS+"boardList", map);
+		List<AdoptBoard> list = session.selectList(NS+"boardList", map);
 		return list;
 	}
 	
-	public List<PetBoard> boardUser(int boardId, String userId) {
-		map.clear();
-		map.put("boardId", boardId);
-		map.put("userId", userId);
-		List<PetBoard> list = session.selectList(NS+"boardUser", map);
+	public List<AdoptBoard> boardUser(String userId) {
+		List<AdoptBoard> list = session.selectList(NS+"boardUser", userId);
 		return list;
 	}
 	
-	public int boardInsert(PetBoard petBoard) {
-		int num = session.insert(NS+"boardInsert", petBoard);
+	public int boardInsert(AdoptBoard adoptBoard) {
+		int num = session.insert(NS+"boardInsert", adoptBoard);
 		return num;
 	}
 	
-	public PetBoard boardOne(int postId) {
-		PetBoard board = session.selectOne(NS+"boardOne", postId);
+	public AdoptBoard boardOne(int postId) {
+		AdoptBoard board = session.selectOne(NS+"boardOne", postId);
 		return board;
 	}
 	
-	public int boardUpdate(PetBoard petBoard) {
-		int num = session.update(NS+"boardUpdate", petBoard);
+	public int boardUpdate(AdoptBoard adoptBoard) {
+		int num = session.update(NS+"boardUpdate", adoptBoard);
 		return num;
 	}
 	

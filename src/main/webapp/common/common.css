@@ -45,7 +45,7 @@ img {
 .boardImg {
   width: 100%;
   height: 300px;
-  background-image: url("${pageContext.request.contextPath}/view/images/banner/petBoard.jpg");
+  background-image: url("/images/banner/petBoard.jpg");
   background-repeat: no-repeat;
   background-position: top;
   background-size: cover;
@@ -72,19 +72,59 @@ img {
   color: #fff;
   text-shadow: 0px 0px 3px #fff;
 }
-.modPage {
-  width: 100%;
-  height: 60px;
-  font-size: 20px;
-  padding: 0 500px;
-}
-.modPage .inner {
+.adminMenu {
   width: 200px;
-  justify-content: space-between;
+  height: calc(100vh - 80px);
+  border-right: 1px solid #ccc;
 }
-.modPage .inner a{
-	cursor: default;;
+.adminMenu h2 {
+  width: 100%;
+  height: 50px;
+  font-size: 20px;
+  border-bottom: 1px solid #ccc;
+  background: #F2EFE9;
 }
-.modPage .inner a.active{
-	cursor: pointer;
+.adminMenu ul {
+  width: 100%;
+  height: calc(100% - 50px);
+}
+.adminMenu ul li {
+  width: 100%;
+  height: 50px;
+  padding-left: 20px;
+  font-size: 18px;
+  font-weight: bold;
+  border-bottom: 1px solid #ccc;
+  justify-content: flex-start;
+  transition: 0.2s linear;
+}
+.adminMenu ul li.active {
+  background-color: #ffedc8;
+}
+.adminMenu ul li:hover {
+  background-color: #ffedc8;
+}
+.searchBox {
+  width: 250px;
+  height: 40px;
+  border: 1px solid #000;
+  background: #fff;
+  margin-right: 35px;
+  border-radius: 20px;
+  padding: 0px 13px;
+  overflow: hidden;
+}
+.searchBox input {
+  width: 230px;
+  height: 100%;
+  outline: none;
+  border: none;
+  margin-right: 3px;
+  background-color: #fff;
+  font-size: 16px;
+}
+.searchBox .searchIcon {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
 }

@@ -1,11 +1,11 @@
 package model;
 
-public class Comm extends Object {
+public class Comm {
 	
+	int commId;
 	int postId;
 	int postDisable;
 	String userId;
-	String commId;
 	String content;
 	String regDate;
 	int boardType;
@@ -28,10 +28,10 @@ public class Comm extends Object {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	public String getCommId() {
+	public int getCommId() {
 		return commId;
 	}
-	public void setCommId(String commId) {
+	public void setCommId(int commId) {
 		this.commId = commId;
 	}
 	public String getContent() {
@@ -43,7 +43,7 @@ public class Comm extends Object {
 	public String getRegDate() {
 		return regDate;
 	}
-	public void setRegdate(String regDate) {
+	public void setRegDate(String regDate) {
 		this.regDate = regDate;
 	}
 	public int getBoardType() {
@@ -52,7 +52,7 @@ public class Comm extends Object {
 	public void setBoardType(int boardType) {
 		this.boardType = boardType;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Comm [postId=" + postId + ", postDisable=" + postDisable + ", userId=" + userId + ", commId=" + commId

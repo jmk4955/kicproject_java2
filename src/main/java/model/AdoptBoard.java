@@ -1,6 +1,6 @@
 package model;
 
-public class AdoptBoard extends Object {
+public class AdoptBoard {
 	int postId;
 	int postDisable;
 	int postReportCnt;

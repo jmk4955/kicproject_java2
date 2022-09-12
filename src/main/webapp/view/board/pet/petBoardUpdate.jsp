@@ -34,67 +34,68 @@
 <!-- boardImg -->
 
 <!-- content -->
-  <form onsubmit="return submitLengthCheck(this)" action="${ pageContext.request.contextPath }/board/petBoardPro" name="f" method="post">
+  <form onsubmit="return submitLengthCheck(this)" action="${ pageContext.request.contextPath }/board/petBoardUpdatePro" name="f" method="post">
   	<input type="hidden" name="userId" value="${ sessionScope.userId }"/>
   	<input type="hidden" name="boardId" value="${ sessionScope.boardType }"/>
+  	<input type="hidden" name="postId" value="${ board.postId }">
     <section class="content">
       <div class="inner center">
 
         <div class="contentImg">
-        	<input type="hidden" name="petImg" value="">
-          <img src="${ pageContext.request.contextPath }/view/images/video_cover_pattern.png" alt="img" id="pic">
+        	<input type="hidden" name="petImg" value="${board.petImg}">
+          <img src="${ pageContext.request.contextPath }/view/board/img/${board.petImg}" alt="img" id="pic">
           <a href="javascript:win_upload()" class="btn">사진넣기</a>
         </div>
 
         <div class="contentInfo">
           <ul class="center info1">
             <li class="center">
-              <span class="name">이름 : </span><input name="petName" class="petName" type="text">
+              <span class="name">이름 : </span><input name="petName" class="petName" value="${ board.petName }" type="text">
             </li>
             <li class="center">
               <span class="name">종류 : </span>
               <label>
-                <input type="radio" name="petType" checked value="0">강아지
+                <input type="radio" name="petType" ${ board.petType == 0 ? "checked" : "" } value="0">강아지
               </label>
               <label>
-                <input type="radio" name="petType" value="1">고양이
+                <input type="radio" name="petType" ${ board.petType == 1 ? "checked" : "" } value="1">고양이
               </label>
             </li>
             <li class="center">
               <span class="name">성별 : </span>
               <label>
-                <input type="radio" name="petGender" checked value="0">남아
+                <input type="radio" name="petGender" ${ board.petGender == 0 ? "checked" : "" } value="0">남아
               </label>
               <label>
-                <input type="radio" name="petGender" value="1">여아
+                <input type="radio" name="petGender" ${ board.petGender == 1 ? "checked" : "" } value="1">여아
               </label>
             </li>
           </ul>
 
           <ul class="center info1">
             <li class="center">
-              <span class="name">특징 : </span><input class="petDetail" name="petDetail" type="text">
+              <span class="name">특징 : </span><input class="petDetail" value="${ board.petDetail }" name="petDetail" type="text">
             </li>
             <li class="center">
-              <span class="name">보호자 전화번호 : </span><input  type="number" name="tel" oninput="maxLengthCheck(this)" maxlength="11" placeholder="예) 01012345678" required>
+              <span class="name">보호자 전화번호 : </span><input  type="number" name="tel" value="${ board.tel }" oninput="maxLengthCheck(this)" maxlength="11" placeholder="예) 01012345678" required>
             </li>
           </ul>
           
           <ul class="center info1">
             <li class="center">
-              <span class="name">${ boardType == 0 ? "발견장소" : "분실장소" } : </span><input class="place" name="place" id="roadAddress" type="text" readonly><div onclick="execDaumPostcode()" class="btn">주소검색</div>
+              <span class="name">${ boardType == 0 ? "발견장소" : "분실장소" } : </span><input class="place" name="place" id="roadAddress" value="${ board.place }" type="text" readonly><div onclick="execDaumPostcode()" class="btn">주소검색</div>
             </li>
             <li>
-              <span class="name">${ boardType == 0 ? "발견날짜" : "분실날짜" } : </span><input type="date"  name="petDate">
+              <span class="name">${ boardType == 0 ? "발견날짜" : "분실날짜" } : </span><input type="date" value="${ board.petDate }" name="petDate">
             </li>
           </ul>
           <div class="info1 explain">
             <div class="name">상세설명</div>
-            <textarea name="content"></textarea>
+            <textarea name="content">${ board.content }</textarea>
           </div>
 
           <div class="center submit">
-            <input type="submit" value="게시물 작성" class="btn"> <div class="btn list">목록</div>
+            <input type="submit" value="게시물 수정" class="btn"> <div class="btn list">목록</div>
           </div>
         </div>
 

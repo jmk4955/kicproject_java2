@@ -1,6 +1,6 @@
 package model;
 
-public class PetBoard extends Object {
+public class PetBoard {
 	int postId;
 	int postDisable;
 	int postReportCnt;
