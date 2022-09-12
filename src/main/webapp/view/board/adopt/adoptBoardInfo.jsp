@@ -29,9 +29,9 @@
   </script>
   
   <script type="text/javascript">
-		function win_report(reportType, reportId, repoUserId) {
+		function win_report(reportType, postId, repoUserId) {
 			const op = "width=500, height=400, left=50, top=150";
-			open("${pageContext.request.contextPath}/board/reportForm?reportId="+reportId+"&boardType=4&reportType="+reportType+"&repoUserId="+repoUserId, "", op);
+			open("${pageContext.request.contextPath}/board/reportForm?postId="+postId+"&boardType=4&reportType="+reportType+"&repoUserId="+repoUserId, "", op);
 		}
   </script>
   
@@ -68,8 +68,10 @@
           <a href="${ pageContext.request.contextPath }/board/petBoardUpdate?postId=${board.postId}" class="btn">수정</a>
           <a href="javascript:confirmDisable()" class="btn">삭제</a>
         </c:if>
-        <c:if test="${ sessionScope.userId != null}">
-          <div class="btn">신고</div>
+        <c:if test="${ sessionScope.userId != null }">
+			<c:if test="${ sessionScope.userId != board.userId }">
+          		<a href="javascript:win_report(1, ${ board.postId }, '${ board.userId }')" class="btn">신고</a>
+          	</c:if>
         </c:if>
           <a href="${ pageContext.request.contextPath }/board/petBoard?boardType=${ boardType }&petType=${ board.petType }" class="btn">목록</a>
         </div>

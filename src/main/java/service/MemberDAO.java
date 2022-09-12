@@ -60,4 +60,8 @@ public class MemberDAO {
 		return num;
 	}
 	
+	public void reportCntUp(String repoUserId) {
+		session.update(NS+"reportCountUp", repoUserId);
+	}
+	
 }

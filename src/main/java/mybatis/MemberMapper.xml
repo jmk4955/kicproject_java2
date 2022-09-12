@@ -33,6 +33,10 @@
 		update hanuser set userType=#{userType} where userId = #{userId} 
 	</update>
 	
+	<update id="reportCountUp" parameterType="String">
+		update hanuser set userReportCnt = userreportcnt + 1 where userId = #{userId}
+	</update>
+	
 </mapper>
 
 

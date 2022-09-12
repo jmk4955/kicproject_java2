@@ -10,7 +10,7 @@
 	</select>
 	
 	<insert id="reportInsert" parameterType="report">
-		insert into report values (#{userId}, #{reportId}, report_SEQ.nextval, #{reportText}, #{boardType}, #{reportType})
+		insert into report values (reportId_SEQ.nextval, #{postId}, #{userId}, #{repoUserId}, #{reportText}, to_char(sysdate, 'yyyy-mm-dd'), #{boardType}, #{reportType})
 	</insert>
 	
 </mapper>
