@@ -205,13 +205,13 @@ public class BoardController {
 	public String qnaBoardPro(QnABoard qnaBoard) throws Exception {
 
 		String msg = "게시물 등록 실패";
-		String url = "/board/qnaBoard/qnaBoardForm";
+		String url = "/board/petBoardForm";
 
 		int num = qnaDao.boardInsert(qnaBoard);
 
 		if (num > 0) {
 			msg = "게시물을 등록하였습니다.";
-			url = "/board/qnaBoard/qnaBoard";
+			url = "/board/petBoard?boardType=4&petType=0";
 		}
 
 		request.setAttribute("msg", msg);
