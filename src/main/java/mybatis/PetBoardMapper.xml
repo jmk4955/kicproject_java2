@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="petBoard">
+	
+	<select id="boardCount" parameterType="map" resultType="int">
+		select nvl(count(*), 0) from petboard where boardId = #{boardId} and postDisable = 0 and petType = #{petType}
+	</select>
+
+	<select id="boardList" parameterType="map" resultType="petBoard">
+		select * from (
+			select rownum rnum, a.* from (
+				select * from petboard 
+					where boardId = #{boardId} and postDisable = 0 and petType = #{petType}
+					order by postId desc
+			) a 
+		) where rnum between #{start} and #{end}
+	</select>
+	
+	<insert id="boardInsert" parameterType="petBoard">
+		insert into petboard values (postId_seq.nextval, 0, 0, 0, #{userId}, #{tel}, #{content}, #{place}, to_char(sysdate, 'yyyy-mm-dd'), #{petName}, #{petGender}, #{petType}, #{petDate}, #{petImg}, #{petDetail}, 0, #{boardId})
+	</insert>
+	
+	<select id="boardOne" parameterType="int" resultType="petBoard">
+		select * from petboard where postId = #{value}
+	</select>
+	
+	<update id="boardUpdate" parameterType="petBoard">
+		update petboard set tel =  #{tel}, content = #{content}, place = #{place}, petName = #{petName}, petGender = #{petGender}, petType=#{petType}, petDate = #{petDate}, petImg = #{petImg}, petDetail = #{petDetail} where postId = #{postId}
+	</update>
+	
+	<update id="boardDisable" parameterType="petBoard">
+		update petboard set postDisable = 1 where postId = #{postId}
+	</update>
+	
+	<delete id="boardDelete" parameterType="int">
+		delete from petboard where postId = #{value}
+	</delete>
+	
+	<update id="readCntUp" parameterType="int">
+		update petboard set readcnt = readcnt + 1 where postId = #{value}
+	</update>
+	
+	<update id="reportCntUp" parameterType="int">
+		update petboard set postreportcnt = postreportcnt + 1 where postId = #{value}
+	</update>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -15,15 +15,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import model.AdoptBoard;
-import model.PetBoard;
-
-import model.AdoptBoard;
 import model.Comm;
 import model.PetBoard;
 import model.QnABoard;
 import model.Report;
 import model.ReviewBoard;
-import service.AdoptBoardDAO;
+import service.AdoptBoadDAO;
 import service.CommDAO;
 import service.MemberDAO;
 import service.PetBoardDAO;
@@ -51,7 +48,7 @@ public class BoardController {
 	@Autowired
 	CommDAO commDao;
 	@Autowired
-	AdoptBoardDAO adoptDao;
+	AdoptBoadDAO adoptDao;
 	@Autowired
 	ReviewBoardDAO reviewDao;
 	@Autowired
@@ -86,20 +83,22 @@ public class BoardController {
 		
 		int limit = 8; // 한 page당 게시물 개수
 		
-		List<Object> list = null;
-		
 		if(boardType == 0 || boardType == 1) {
-			list = petDao.boardList(pageInt, limit, boardId, petType);
+			List<PetBoard> list = petDao.boardList(pageInt, limit, boardId, petType);
 			boardCount = petDao.boardCount(boardId, petType);
+			request.setAttribute("list", list);
 		} else if(boardType == 2) {
-			list = adoptDao.boardList(pageInt, limit, petType);
+			List<AdoptBoard> list = adoptDao.boardList(pageInt, limit, petType);
 			boardCount = adoptDao.boardCount(petType);
+			request.setAttribute("list", list);
 		} else if(boardType == 3) {
-			list = reviewDao.boardList(pageInt, limit);
+			List<ReviewBoard> list = reviewDao.boardList(pageInt, limit);
 			boardCount = reviewDao.boardCount();
+			request.setAttribute("list", list);
 		} else if(boardType == 4) {
-			list = qnaDao.boardList(pageInt, limit);
+			List<QnABoard> list = qnaDao.boardList(pageInt, limit);
 			boardCount = qnaDao.boardCount();
+			request.setAttribute("list", list);
 		}
 		
 //		pagination 개수
@@ -114,7 +113,6 @@ public class BoardController {
 
 		int boardNum = boardCount - (pageInt - 1) * limit;
 		
-		request.setAttribute("list", list);
 		request.setAttribute("boardCount", boardCount);
 		request.setAttribute("boardNum", boardNum);
 		request.setAttribute("start", start);
@@ -327,7 +325,7 @@ public class BoardController {
 		} else if(boardType == 3) {
 			return "board/reviewBoard/reviewBoardInfo";
 		} else if(boardType == 4) {
-			return "board/qnaBoard/QBoardInfo";
+			return "board/qnaBoard/qnaBoardInfo";
 		}
 		
 		return "index";
