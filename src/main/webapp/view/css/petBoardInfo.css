@@ -1,0 +1,133 @@
+@charset "UTF-8";
+.content {
+  width: 100%;
+  margin-top: 50px;
+  padding: 0px 300px;
+}
+.content .inner {
+  justify-content: flex-start;
+  flex-direction: column;
+}
+.content .inner .contentHead {
+  width: 100%;
+  height: 50px;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.content .inner .contentHead .regDate .name {
+  font-weight: bold;
+}
+.content .inner .contentHead .regDate li {
+  margin-right: 10px;
+  font-size: 18px;
+}
+.content .inner .contentHead .box .btn {
+  width: 80px;
+  margin-right: 7px;
+}
+.content .inner .contentImg {
+  width: 100%;
+  height: 500px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 1px 1px 3px #ccc;
+  margin-bottom: 30px;
+}
+.content .inner .contentInfo {
+  width: 100%;
+  height: 400px;
+  font-size: 25px;
+}
+.content .inner .contentInfo .name {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+.content .inner .contentInfo .info1 {
+  justify-content: space-between;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #ccc;
+}
+.content .inner .contentInfo .info1 textarea {
+  width: 100%;
+  height: 200px;
+  resize: none;
+  outline: none;
+  font-size: 18px;
+  padding: 10px;
+  border-radius: 20px;
+}
+
+.comment {
+  width: 100%;
+  height: 600px;
+  padding: 0px 300px;
+}
+.comment h2 {
+  margin-bottom: 10px;
+}
+.comment .commentList {
+  width: 100%;
+  height: 450px;
+  overflow-y: scroll;
+  border-bottom: 1px solid #ccc;
+}
+.comment .commentList li {
+  width: 98%;
+  padding: 10px;
+  border-radius: 20px;
+  background-color: #F2EFE9;
+}
+.comment .commentList li .commentInfo {
+  font-weight: bold;
+  font-size: 18px;
+  margin-bottom: 10px;
+  justify-content: space-between;
+}
+.comment .commentList li .commentInfo li {
+  width: auto;
+}
+.comment .commentList li .commentInfo li .btn {
+  width: 70px;
+  height: 30px;
+  margin-left: 4.5px;
+  margin-right: 4.5px;
+  background-color: #fff;
+}
+.comment .commentList li .commentInfo li .btn:hover {
+  background-color: #ffedc8;
+}
+.comment .commentList li textarea {
+  width: 100%;
+  height: 80px;
+  font-size: 16px;
+  resize: none;
+  outline: none;
+  padding: 10px;
+  border-radius: 20px;
+}
+.comment form {
+  width: 100%;
+  height: 100px;
+  border: 1px solid #ccc;
+  border-radius: 0 0 20px 20px;
+  overflow: hidden;
+}
+.comment form textarea {
+  width: 90%;
+  height: 100%;
+  resize: none;
+  outline: none;
+  border: none;
+  padding: 10px;
+  font-size: 16px;
+}
+.comment form input {
+  width: 10%;
+  height: 100%;
+  outline: none;
+  border: none;
+  background: #F2EFE9;
+}
+.comment form input:hover {
+  background-color: #ffedc8;
+}

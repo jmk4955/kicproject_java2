@@ -1,0 +1,64 @@
+@charset "UTF-8";
+.cardBox {
+  width: 100%;
+  padding: 50px 100px;
+}
+.cardBox .inner .cardHeader {
+  width: 100%;
+  height: 70px;
+  margin-bottom: 20px;
+  justify-content: space-between;
+  border-bottom: 1px solid #ccc;
+}
+.cardBox .inner .cardHeader .box {
+  height: 100%;
+}
+.cardBox .inner .cardHeader .box label {
+  margin-right: 10px;
+  font-size: 18px;
+  font-weight: bold;
+}
+.cardBox .inner .cardList {
+  width: 100%;
+  height: calc(100% - 50px);
+  display: flex;
+  flex-wrap: wrap;
+}
+.cardBox .inner .cardList .card {
+  width: 300px;
+  height: 400px;
+  border-radius: 20px;
+  overflow: hidden;
+  margin-right: 29px;
+  margin-bottom: 30px;
+  box-shadow: 1px 1px 3px #ccc;
+}
+.cardBox .inner .cardList .card .cardImg {
+  width: 100%;
+  height: 45%;
+}
+.cardBox .inner .cardList .card .cardInfo {
+  width: 100%;
+  height: 55%;
+  padding: 10px;
+  background: #F2EFE9;
+  box-shadow: inset 0px 1px 3px #ccc;
+  border-radius: 0 0 20px 20px;
+  font-size: 18px;
+}
+.cardBox .inner .cardList .card .cardInfo .name {
+  font-weight: bold;
+}
+.cardBox .inner .cardList .card .cardInfo li {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 3px;
+}
+
+.pagination {
+  width: 100%;
+  height: 50px;
+  border-top: 1px solid #ccc;
+}
